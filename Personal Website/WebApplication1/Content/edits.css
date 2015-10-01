@@ -1,0 +1,53 @@
+﻿/*Edits*/
+
+.jumbotron .message-box {
+    width: 110%;
+}
+#about a {
+    color:#FFF;
+}
+
+.edu-descrip p {
+    color: #444;
+    font-weight:400;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-body .btn {
+    margin: 10px 5px 5px 0;
+}
+
+.modal-body p {
+    font-weight:bolder;
+    color: #444;
+}
+
+.modal-body a {
+    color: #0033EE;
+}
+.modal-body a:hover {
+    text-decoration: underline;
+}
+
+.examp {
+    font-weight: bolder;
+}
+
+p.descrip {
+    color: #21b799;
+}
+
+h3.fizzbuzz {
+    color: #0033EE;
+}
+
+h3.fizz {
+    color: #8B008B;
+}
+
+h3.buzz {
+    color: #008000;
+}

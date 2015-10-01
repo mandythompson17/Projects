@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<!-- ==============================================
+CONTACT
+=============================================== -->
+<section id="contact">
+
+    <div class="container">
+
+        <h1 class="section-title scrollimation scale-in">Keep in <span>Touch</span> with me</h1>
+
+        <div class="row">
+
+            <div class="col-sm-5 contact-info scrollimation fade-right">
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sapien risus, blandit at fringilla ac, varius sed dolor. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula. Nulla suscipit erat nibh, ut porttitor nisl dapibus eu.</p>
+
+                <address>
+                    John Doe<br>
+                    W325 State Road 123<br>
+                    Mondovi, WI(Wisconsin) 98746-54321<br>
+                    (123) 456 - 7890
+                </address>
+
+                <ul class="socials">
+                    <li><a href="#fakelink"><i class="icon-twitter"></i></a></li>
+                    <li><a href="#fakelink"><i class="icon-facebook"></i></a></li>
+                    <li><a href="#fakelink"><i class="icon-dribbble"></i></a></li>
+                    <li><a href="#fakelink"><i class="icon-google-plus"></i></a></li>
+                </ul>
+
+            </div>
+
+            <!--=== Contact Form ===-->
+            <form id="contact-form" class="col-sm-7 scrollimation fade-left" action="contact.php" method="post" novalidate>
+
+                <div class="form-group">
+                    <label class="control-label" for="contact-name">Name</label>
+                    <div class="controls">
+                        <i class="icon-user"></i>
+                        <input id="contact-name" name="contactName" placeholder="My name is..." class="form-control input-lg requiredField" type="text" data-error-empty="Please enter your name">
+                    </div>
+                </div><!-- End name input -->
+
+                <div class="form-group">
+                    <label class="control-label" for="contact-mail">Email</label>
+                    <div class=" controls">
+                        <i class="icon-envelope"></i>
+                        <input id="contact-mail" name="email" placeholder="Please respond at..." class="form-control input-lg requiredField" type="email" data-error-empty="Please enter your email" data-error-invalid="Invalid email address">
+                    </div>
+                </div><!-- End email input -->
+
+                <div class="form-group">
+                    <label class="control-label" for="contact-message">Message</label>
+                    <div class="controls">
+                        <i class="icon-comment"></i>
+                        <textarea id="contact-message" name="comments" placeholder="I wanna talk about..." class="form-control input-lg requiredField" rows="5" data-error-empty="Please enter your message"></textarea>
+                    </div>
+                </div><!-- End textarea -->
+
+                <p><button name="submit" type="submit" class="btn btn-theme btn-lg" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Message Sent"><i class="icon-location-arrow"></i>Send Message</button></p>
+                <input type="hidden" name="submitted" id="submitted" value="true" />
+
+            </form><!-- End contact-form -->
+
+        </div><!-- End row -->
+
+    </div><!-- End container -->
+
+</section><!-- End contact section -->

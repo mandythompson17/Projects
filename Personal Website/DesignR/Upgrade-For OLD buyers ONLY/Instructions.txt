@@ -1,0 +1,31 @@
+----------------
+DesignR Fix 1.1
+----------------
+
+**This Fix applies to OLDER Version buyers ONLY. 
+
+If you have not make any changes in the .css and .js files of the DesignR template
+then you can simply replace the old css and js folders with the ones of the new version.
+Else follow these instructions.
+
+
+1] Copy the .css files of this fix into the DesignR /css folder.
+
+2] Copy the .js files of this fix into the DesignR /js folder.
+
+3] Include those files in the index.html as shown below:
+
+	The CSS files:
+	--------------
+	Copy-paste the following line at the top of the file in the CSS section AFTER any other css file.
+	
+	<link rel="stylesheet" href="css/fix-1-1.css">
+
+	
+	The JS files:
+	--------------
+	
+	Copy-paste the following lines at the bottom of the file in the SCRIPTS section AFTER any other js file.
+	
+	<script src="js/jquery.backstretch.min.js"></script>
+	<script src="js/fix-1-1.js"></script>

@@ -1,0 +1,741 @@
+﻿
+@{
+    ViewBag.Title = "Portfolio";
+}
+
+<!-- ==============================================
+      PORTFOLIO
+      =============================================== -->
+<section id="portfolio">
+
+    <div id="portfolio-header" class="text-center">
+
+        <h1 class="section-title scrollimation scale-in">My <span>Portfolio</span></h1>
+
+        <!--==== Portfolio Filters ====-->
+        <div id="filter-works">
+            <ul>
+                <li class="active">
+                    <a href="#fake" data-filter=".java-script">JavaScript</a>
+                </li>
+                <li>
+                    <a href="#fake" data-filter=".bug-track">Bug Tracker</a>
+                </li>
+                <li>
+                    <a href="#fake" data-filter=".car-find">Car Finder</a>
+                </li>
+                <li>
+                    <a href="#fake" data-filter=".budg-plan">Budget Planner</a>
+                </li>
+            </ul>
+        </div><!--End portfolio filters -->
+
+    </div><!--End portfolio header -->
+
+    <div class="container masonry-wrapper scrollimation fade-in">
+
+        <div id="projects-container">
+
+            <!-- ==============================================
+            SINGLE PROJECT ITEM - Five Numbers
+            =============================================== -->
+            <a class="project-item java-script" href="" data-toggle="modal" data-target="#five">
+
+            <img class="img-responsive project-image" src="~/assets/projects/calculator-385506_640.jpg" alt="calculator"><!--Project thumb -->
+
+                <div class="hover-mask">
+                    <h2 class="project-title">Five Numbers</h2><!--Project Title -->
+                    <p>Find the largest, smallest, mean, sum, and product of five input numbers</p><!--Project Subtitle -->
+                </div>
+
+            <!-- ==============================================
+            END PROJECT ITEM
+            =============================================== -->
+
+            <!-- ==============================================
+             PROJECT ITEM - Factorials
+             =============================================== -->
+
+
+            <a class="project-item java-script" href="" data-toggle="modal" data-target="#factorial">
+
+                <img class="img-responsive project-image" src="~/assets/projects/factory-634400_640.jpg" alt=""><!--Project thumb -->
+
+                <div class="hover-mask">
+                    <h2 class="project-title">Factorials</h2><!--Project Title -->
+                    <p>Calculate the factorial of an input number</p><!--Project Subtitle -->
+                </div>
+            </a>
+            <!--End Project Item -->
+
+            <!-- ==============================================
+               PROJECT ITEM - Fizz Buzz
+             =============================================== -->
+
+            <a class="project-item java-script" href="" data-toggle="modal" data-target="#fizzbuzz">
+
+                <img class="img-responsive project-image" src="~/assets/projects/soda-686984_640.jpg" alt="soda can"><!--Project thumb -->
+
+                <div class="hover-mask">
+                    <h2 class="project-title">Fizz Buzz</h2><!--Project Title -->
+                    <p>Input two numbers and watch the screen Fizz and Buzz as it counts to 100</p><!--Project Subtitle -->
+                </div>
+                <!--End Project Item -->
+            <!-- ==============================================
+               PROJECT ITEM - Palindrome
+              =============================================== -->
+
+
+            <a class="project-item java-script" href="" data-toggle="modal" data-target="#palindrome">
+
+                <img class="img-responsive project-image" src="~/assets/projects/napoleon-560292_640.jpg" alt="Napoleon"><!--Project thumb -->
+                    <div class="hover-mask">
+                        <h2 class="project-title">Palindrome</h2><!--Project Title -->
+                            <p>Enter a word and see if it's a palindrome</p><!--Project Subtitle -->
+                    </div>
+           </a><!--End Project Item -->
+
+            <!-- ==============================================
+               PROJECT ITEM - Armstrong Numbers
+             =============================================== -->
+
+           <a class="project-item java-script" href="" data-toggle="modal" data-target="#armstrong">
+
+               <img class="img-responsive project-image" src="~/assets/projects/moon-landing-193761_640.jpg" alt="moon landing"><!--Project thumb -->
+
+                    <div class="hover-mask">
+                        <h2 class="project-title">Armstrong Numbers</h2><!--Project Title -->
+                            <p>Find all three-digit Armstrong numbers</p><!--Project Subtitle -->
+                    </div>
+
+           </a><!--End Project Item -->
+            <!-- ==============================================
+                PROJECT ITEM - Happy Numbers
+           =============================================== -->
+
+          <a class="project-item java-script" href="" data-toggle="modal" data-target="#happy">
+              <img class="img-responsive project-image" src="~/assets/projects/230.jpg" alt=""><!--Project thumb -->
+
+                 <div class="hover-mask">
+                    <h2 class="project-title">Happy Numbers</h2><!--Project Title -->
+                       <p>Find the first five Happy numbers</p><!--Project Subtitle -->
+                 </div>
+
+          </a><!--End Project Item -->
+    <!-- ==============================================
+          PROJECT ITEM - Perfect Numbers
+     =============================================== -->
+
+                <a class="project-item java-script" href="" data-toggle="modal" data-target="#perfect">
+                    <img class="img-responsive project-image" src="~/assets/projects/230.jpg" alt=""><!--Project thumb -->
+
+                    <div class="hover-mask">
+                        <h2 class="project-title">Perfect Numbers</h2><!--Project Title -->
+                        <p>Enter a number to see if it's a Perfect number</p><!--Project Subtitle -->
+                    </div>
+
+                </a><!--End Project Item -->
+
+    </a><!--End Project Item -->
+
+    <a class="project-item icons" href="#somelink" data-images="assets/projects/project-slide.jpg, assets/projects/project-slide.jpg">
+
+        <img class="img-responsive project-image" src="assets/projects/project-thumb.jpg" alt=""><!--Project thumb -->
+
+        <div class="hover-mask">
+            <h2 class="project-title">Project 8</h2><!--Project Title -->
+            <p>microsoft.com</p><!--Project Subtitle -->
+        </div>
+
+        <!--==== Project Preview HTML ====-->
+
+        <div class="sr-only project-description">
+            <p class="clearfix">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sapien risus, blandit at fringilla ac, varius sed dolor. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula. Nulla suscipit erat nibh, ut porttitor nisl dapibus eu.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sapien risus, blandit at fringilla ac, varius sed dolor. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula. Nulla suscipit erat nibh, ut porttitor nisl dapibus eu.</p>
+            <img class="img-responsive img-center" src="assets/projects/company-logo.png" alt="">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sapien risus, blandit at fringilla ac, varius sed dolor. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula. Nulla suscipit erat nibh, ut porttitor nisl dapibus eu. Nam eget urna pellentesque nisl ultrices dapibus. Mauris accumsan vehicula nisl, sed tempus mauris facilisis eu. Donec a iaculis nisi, quis malesuada justo. Pellentesque ut enim sit amet ipsum dignissim egestas. Morbi tincidunt rhoncus urna eget placerat.</p>
+        </div>
+
+    </a><!--End Project Item -->
+
+    <a class="project-item web-design" href="#somelink" data-images="assets/projects/project-slide.jpg, assets/projects/project-slide.jpg, assets/projects/project-slide.jpg">
+
+        <img class="img-responsive project-image" src="assets/projects/project-thumb.jpg" alt=""><!--Project thumb -->
+
+        <div class="hover-mask">
+            <h2 class="project-title">Project 9</h2><!--Project Title -->
+            <p>amazon.com</p><!--Project Subtitle -->
+        </div>
+
+        <!--==== Project Preview HTML ====-->
+
+        <div class="sr-only project-description">
+            <p class="clearfix">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sapien risus, blandit at fringilla ac, varius sed dolor. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula. Nulla suscipit erat nibh, ut porttitor nisl dapibus eu.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sapien risus, blandit at fringilla ac, varius sed dolor. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula. Nulla suscipit erat nibh, ut porttitor nisl dapibus eu.</p>
+            <img class="img-responsive img-center" src="assets/projects/company-logo.png" alt="">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sapien risus, blandit at fringilla ac, varius sed dolor. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula. Nulla suscipit erat nibh, ut porttitor nisl dapibus eu.</p>
+        </div>
+
+    </a><!--End Project Item -->
+
+</div><!-- End projects -->
+
+    </div><!-- End container -->
+
+
+    <!-- ==============================================
+    PROJECT PREVIEW MODAL (Do not alter this markup)
+    =============================================== --
+    <div id="project-modal" class="modal fade">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="left-col">
+                        <img class="img-responsive" src="/assets/imac.png" alt="">
+                        <div class="loader"></div>
+                        <div class="image-wrapper"></div>
+                    </div>
+
+                    <h1></h1>
+
+                    <div class="project-descr"></div>
+
+                    <div class="clearfix"></div>
+
+                    <p class="text-center"><a class="btn btn-theme"><i class="icon-external-link"></i>Visit Website</a></p>
+
+                </div><!-- End modal-body --
+
+            </div><!-- End modal-content --
+
+        </div><!-- End modal-dialog --
+
+    </div><!-- End modal --
+
+</section><!-- End portfolio section -->
+
+<!-- ==============================================
+                    MODALS 
+  =============================================== -->
+    <!-- Max of Five -->
+
+    <div class="modal fade" id="five" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h1 class="modal-title" id="myModalLabel">Five Numbers</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-6">
+                        <p>Type in five numbers and click the buttons to find the largest, smallest, mean, sum, and product.</p><br>
+                        <input type="text" id="textBox1" class="form-control input-sm col-xs-1"><br><br>
+                        <input type="text" id="textBox2" class="form-control input-sm col-xs-1"><br><br>
+                        <input type="text" id="textBox3" class="form-control input-sm col-xs-1"><br><br>
+                        <input type="text" id="textBox4" class="form-control input-sm col-xs-1"><br><br>
+                        <input type="text" id="textBox5" class="form-control input-sm col-xs-1"><br><br>
+                        <input type="submit" class="btn btn-success" value="Find Max" onclick="maxOfFive();" />
+                        <input type="submit" class="btn btn-success" value="Find Min" onclick="minOfFive();" />
+                        <input type="submit" class="btn btn-success" value="Find Mean" onclick="meanOfFive();" />
+                        <input type="submit" class="btn btn-success" value="Find Sum" onclick="sumOfFive();" />
+                        <input type="submit" class="btn btn-success" value="Find Product" onclick="productOfFive();" />
+                        <h3 id="maxNumber"</h3>
+                        <h3 id="minNumber"</h3>
+                        <h3 id="meanNumber"></h3>
+                        <h3 id="sumNumber"></h3>
+                        <h3 id="prodNumber"></h3>
+                    </div>
+                    <div class="col-xs-6">
+                        <pre class="brush: js">
+     function maxOfFive(num1, num2, num3, num4, num5) {
+        var num1 = parseInt(document.getElementById('textBox1').value);
+        var num2 = parseInt(document.getElementById('textBox2').value);
+        var num3 = parseInt(document.getElementById('textBox3').value);
+        var num4 = parseInt(document.getElementById('textBox4').value);
+        var num5 = parseInt(document.getElementById('textBox5').value);
+        var max = Math.max(num1, num2, num3, num4, num5);
+        var maxNumber = document.getElementById('maxNumber');
+        maxNumber.innerHTML = "The largest number is " + max;
+   }
+   function minOfFive(num1, num2, num3, num4, num5) {
+        var num1 = parseInt(document.getElementById('textBox1').value);
+        var num2 = parseInt(document.getElementById('textBox2').value);
+        var num3 = parseInt(document.getElementById('textBox3').value);
+        var num4 = parseInt(document.getElementById('textBox4').value);
+        var num5 = parseInt(document.getElementById('textBox5').value);
+        var min = Math.min(num1, num2, num3, num4, num5);
+        var minNumber = document.getElementById('minNumber');
+        minNumber.innerHTML = "The smallest number is " + min;
+    }
+    function meanOfFive(num1, num2, num3, num4, num5) {
+        var num1 = parseInt(document.getElementById('textBox1').value);
+        var num2 = parseInt(document.getElementById('textBox2').value);
+        var num3 = parseInt(document.getElementById('textBox3').value);
+        var num4 = parseInt(document.getElementById('textBox4').value);
+        var num5 = parseInt(document.getElementById('textBox5').value);
+        var mean = (num1 + num2 + num3 + num4 + num5) / 5;
+        var meanNumber = document.getElementById('meanNumber');
+        meanNumber.innerHTML = "The mean of the numbers is" + mean;
+    }
+    function sumOfFive(num1, num2, num3, num4, num5) {
+        var num1 = parseInt(document.getElementById('textBox1').value);
+        var num2 = parseInt(document.getElementById('textBox2').value);
+        var num3 = parseInt(document.getElementById('textBox3').value);
+        var num4 = parseInt(document.getElementById('textBox4').value);
+        var num5 = parseInt(document.getElementById('textBox5').value);
+        var sum = num1 + num2 + num3 + num4 + num5;
+        var sumNumber = document.getElementById('sumNumber');
+        sumNumber.innerHTML = "The sum of the numbers is " + sum;
+    }
+    function productOfFive(num1, num2, num3, num4, num5) {
+        var num1 = parseInt(document.getElementById('textBox1').value);
+        var num2 = parseInt(document.getElementById('textBox2').value);
+        var num3 = parseInt(document.getElementById('textBox3').value);
+        var num4 = parseInt(document.getElementById('textBox4').value);
+        var num5 = parseInt(document.getElementById('textBox5').value);
+        var prod = num1 * num2 * num3 * num4 * num5;
+        var prodNumber = document.getElementById('prodNumber');
+        prodNumber.innerHTML = "The product of the numbers is " + prod;
+    }
+                    </pre>
+                    </div>
+                </div>
+                <div class="modal-footer no-margin">
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Factorials -->
+
+<div class="modal fade" id="factorial" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h1 class="modal-title" id="myModalLabel">Factorials</h1>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-6">
+                    <p class="descrip">The factorial of a non-negative integer <i>n</i> is the product of all positive integers less than or equal to <i>n</i>.
+                    <br />Example:</p>
+                    <pre class="examp">5! = 5 X 4 X 3 X 2 X 1 = 120</pre>
+                    <p>Enter a number and click the button to calculate its factorial.</p>
+                    <input type="text" id="myFactBox" class="form-control input-sm col-xs-1"/><br /><br />
+                    <input type="submit" class="btn btn-success" value="Calculate Factorial" onclick="factorial();" />
+                    <h3 id="factNum"></h3>
+                </div> 
+                <div class="col-xs-6">
+                    <pre class="brush: js">
+                    
+    function factorial() {
+        var numInput = parseInt(document.getElementById('myFactBox').value);
+        var num = numInput;
+        var i = num - 1;
+        while (i !== 0) {
+            num *= i;
+            i--;
+        }
+        var factNum = document.getElementById('factNum');
+        factNum.innerHTML = "The factorial of " + numInput + "is " + num;
+    }
+                    </pre>
+                 </div>
+            </div>
+            <div class="modal-footer no-margin">
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Fizz Buzz -->
+    <div class="modal fade" id="fizzbuzz" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h1 class="modal-title" id="myModalLabel">Fizz Buzz</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-6">
+                        <p>Enter two numbers (between 1 and 100), click the button, and watch the screen Fizz and Buzz as it counts to 100.</p>
+                        <input type="text" id="myFizz" class="form-control input-sm col-xs-1" /><br /><br />
+                        <input type="text" id="myBuzz" class="form-control input-sm col-xs-1" /><br /><br />
+                        <input type="submit" class="btn btn-success" value="FizzBuzz" onclick="fizzbuzz();" />
+                        <h3 id="fbResult"></h3>
+                    </div>
+                    <div class="col-xs-6">
+                        <pre class="brush: js">
+                    
+    function fizzbuzz() {
+        var i = 1;
+        var fizz = parseInt(document.getElementById('myFizz').value);
+        var buzz = parseInt(document.getElementById('myBuzz').value);
+        var fbResult = document.getElementById('fbResult');
+        while (i <= 100) {
+            if (i % fizz === 0 && i % buzz === 0) {
+                fbResult.innerHTML += "FizzBuzz\n";
+            }
+            else if (i % fizz === 0) {
+                fbResult.innerHTML += "Fizz\n";
+            }
+            else if (i % buzz === 0) {
+                fbResult.innerHTML += "Buzz\n";
+            }
+            else {
+                fbResult.innerHTML += i + "\n";
+            }
+            i++;
+        }
+    }
+                    </pre>
+                    </div>
+                </div>
+                <div class="modal-footer no-margin">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Palindrome -->
+    <div class="modal fade" id="palindrome" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h1 class="modal-title" id="myModalLabel">Palindrome</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-6">
+                        <p class="descrip">
+                            A <a href="https://en.wikipedia.org/wiki/Palindrome">palindrome</a> is a word, phrase, number, or other sequence that reads the same backword or forward.
+                            <br />Example:
+                        </p>
+                        <pre class="examp">Hannah</pre>
+                        <p>Enter a word, phrase, or number and click the button to see if it's a palindrome.</p>
+                        <input type="text" id="testPal" class="form-control input-sm col-xs-1" /><br /><br />
+                        <input type="submit" class="btn btn-success" value="Is this a palindrome?" onclick="palindromes();" />
+                        <h3 id="checkPalind"></h3>
+                    </div>
+                    <div class="col-xs-6">
+                        <pre class="brush: js">
+                    
+    function palindromes() {
+        var given = document.getElementById('testPal').value;
+        var testWord = given.toLowerCase();
+        testWord = testWord.replace(/\s+/g, '');
+        var pal = new Boolean(false);
+        var a = 0;
+        var b = testWord.length - 1;
+        switch (true) {
+            case (testWord.length % 2 === 0):
+                while (b > a) {
+                    if (testWord.charAt(a) === testWord.charAt(b)) {
+                        a++;
+                        b--;
+                        pal = true;
+                    }
+                    else {
+                        pal = false;
+                        break;
+                    }
+                }
+                break;
+            default:
+                while (a !== b) {
+                    if (testWord.charAt(a) === testWord.charAt(b)) {
+                        a++;
+                        b--;
+                        pal = true;
+                    }
+                    else {
+                        pal = false;
+                        break;
+                    }
+                }
+                break;
+        }
+        var checkPalind = document.getElementById('checkPalind');
+        if (pal === true) {
+            checkPalind.innerHTML = "Yes, that is a palindrome!";
+        }
+        else {
+            checkPalind.innerHTML = "No, that is not a palindrome.";
+        }
+    }
+                    </pre>
+                    </div>
+                </div>
+                <div class="modal-footer no-margin">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Armstrong -->
+    <div class="modal fade" id="armstrong" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h1 class="modal-title" id="myModalLabel">Armstrong Numbers</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-6">
+                        <p class="descrip">
+                            An <a href="https://en.wikipedia.org/wiki/Narcissistic_number">Armstrong number</a> is an integer such that the sum of the cubes of its digits is equal to the number itself.
+                            <br />Example:
+                        </p>
+                        <pre class="examp">3&sup3; + 7&sup3; + 1&sup3; = 371</pre>
+                        <p>This program finds and displays all three-digit Armstrong numbers.</p>
+                        <input type="submit" class="btn btn-success" value="Find" onclick="armstrong();" />
+                        <h3 id="moonLanding"></h3>
+                    </div>
+                    <div class="col-xs-6">
+                        <pre class="brush: js">
+                    
+    function armstrong() {
+        var moonLanding = document.getElementById('moonLanding');
+        moonLanding.innerHTML = "The three-digit Armstrong numbers are:<br><br>";
+        var num = 100;
+        while (num < 1000) {
+            var numS = num.toString();
+            var a = parseInt(numS.charAt(0));
+            var b = parseInt(numS.charAt(1));
+            var c = parseInt(numS.charAt(2));
+            var sum = Math.pow(a, 3) + Math.pow(b, 3) + Math.pow(c, 3);
+            if (sum === num) {
+                moonLanding.innerHTML += "<b>" + num + "</b><br><br>";
+                num++;
+            }
+            else {
+                num++;
+            }
+        }
+    }
+                    </pre>
+                    </div>
+                </div>
+                <div class="modal-footer no-margin">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Happy -->
+    <div class="modal fade" id="happy" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h1 class="modal-title" id="myModalLabel">Happy Numbers</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-6">
+                        <p class="descrip">
+                            An <a href="https://en.wikipedia.org/wiki/Happy_number">Happy number</a> is a positive integer that can be reduced to 1 through the process of 
+                            replacing it with the sum of the squares of its digits and repeating until the result is 1 or an endless loop.</p>
+                        <p>This program finds and displays the first five Happy numbers.</p>
+                        <input type="submit" class="btn btn-success" value="Find" onclick="happy();" />
+                        <h3 id="happyNumbers"></h3>
+                    </div>
+                    <div class="col-xs-6">
+                        <pre class="brush: js">
+                    
+    function happy() {
+        var happyNumbers = document.getElementById('happyNumbers');
+        happyNumbers.innerHTML = "The first five Happy numbers are:<br><br>";
+        var x = 1;
+        var y = x;
+        var i = 1;
+        while (i <= 5) {
+            if (y === 1) {
+                happyNumbers.innerHTML += "<b>" + x + "</b><br><br>";
+                x++;
+                y = x;
+                i++;
+            }
+            else if (y === 4) {
+                x++;
+                y = x;
+            }
+            else {
+                while (y !== 1 & y !== 4) {
+                    var num = y.toString();
+                    if (num.length === 1) {
+                        y = parseInt(num);
+                        y = Math.pow(y, 2);
+                    }
+                    else if (num.length === 2) {
+                        var a = parseInt(num.charAt(0));
+                        var b = parseInt(num.charAt(1));
+                        y = Math.pow(a, 2) + Math.pow(b, 2);
+                    }
+                    else {
+                        var a = parseInt(num.charAt(0));
+                        var b = parseInt(num.charAt(1));
+                        var c = parseInt(num.charAt(2));
+                        y = Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2);
+                    }
+                }
+            }
+        }
+    }
+                    </pre>
+                    </div>
+                </div>
+                <div class="modal-footer no-margin">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Perfect Numbers -->
+
+    <div class="modal fade" id="perfect" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h1 class="modal-title" id="myModalLabel">Perfect Numbers</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-6">
+                        <p class="descrip">
+                            A <a href="https://en.wikipedia.org/wiki/Perfect_number">Perfect number</a> is a positive integer that is equal to the sum of its 
+                            proper positive divisors (all positive divisors excluding the number itself).
+                        
+                            <br />Example:</p>
+                        </p>
+                        <pre class="examp">1 + 2 + 3 = 6</pre>
+                        <p>Enter a positive integer and click the button to see if it's a Perfect Number.</p>
+                        <input type="text" id="myPerfectNum" class="form-control input-sm col-xs-1" /><br /><br />
+                        <input type="submit" class="btn btn-success" value="Is this a Perfect number?" onclick="perfectNumbers();" />
+                        <h3 id="perfectResult"></h3>
+                        <p>Click the button below to find and display all Perfect Numbers between 1 and 10,000.</p>
+                        <input type="submit" class="btn btn-success" value="Find" onclick="numerosPerfectos();" />
+                        <h3 id="perfecto"></h3>
+                    </div>
+                    <div class="col-xs-6">
+                        <pre class="brush: js">
+                    
+    function perfectNumbers() {
+        var num = parseInt(document.getElementById('myPerfectNum').value);
+        var perfectResult = document.getElementById('perfectResult');
+        if (num < 1) { //no negative numbers
+            perfectResult.innerHTML = "Please enter a positive integer.";
+        }
+        else {
+            var divisors = new Array();
+            var i = 2;
+            while (i < num) {
+                if (num % i === 0) {
+                    divisors.push(i);
+                    i++;
+                }
+                else {
+                    i++;
+                }
+            }
+            var sum = 1;
+            var r = 0;
+            while (r < divisors.length) {
+                sum += divisors[r];
+                r++;
+            }
+            if (sum === num) {
+                perfectResult.innerHTML = "That is a perfect number!";
+            }
+            else {
+                perfectResult.innerHTML = "That is not a perfect number.";
+            }
+        }
+    }
+    function numerosPerfectos() {
+        var perfecto = document.getElementById('perfecto');
+        perfecto.innerHTML = "The perfect numbers between 1 and 10,000 are:<br><br>";
+        var num = 2;
+        var divisors = new Array();
+        while (num <= 10000) {
+            var i = 2;
+            while (i < num) {
+                if (num % i === 0) {
+                    divisors.push(i);
+                    i++;
+                }
+                else {
+                    i++;
+                }
+            }
+            var sum = 1;
+            var r = 0;
+            while (r < divisors.length) {
+                sum += divisors[r];
+                r++;
+            }
+            if (sum === num) {
+                perfecto.innerHTML += "<b>" + num + "</b><br><br>";
+                divisors.length = 0;
+                num++;
+            }
+            else {
+                divisors.length = 0;
+                num++;
+            }
+        }
+    }
+                    </pre>
+                    </div>
+                </div>
+                <div class="modal-footer no-margin">
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section scripts{
+    <script src="~/Scripts/SyntaxHighlighter/shAll.js"></script>
+    <script src="~/Scripts/Exercises/fiveNumbers.js"></script>
+    <script src="~/Scripts/Exercises/factorial.js"></script>
+    <script src="~/Scripts/Exercises/palindromes.js"></script>
+    <script src="~/Scripts/Exercises/fizzbuzz.js"></script>
+    <script src="~/Scripts/Exercises/armstrong.js"></script>
+    <script src="~/Scripts/Exercises/happy.js"></script>
+    <script src="~/Scripts/Exercises/perfectNums.js"></script>
+}

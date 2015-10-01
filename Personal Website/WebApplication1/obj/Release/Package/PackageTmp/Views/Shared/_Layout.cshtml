@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Mandy Thompson</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- ==============================================
+    Favicons
+    =============================================== -->
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+    <!-- ==============================================
+    Fonts
+    =============================================== -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css'>
+
+    <!-- ==============================================
+    JS
+    =============================================== -->
+    <!--[if lt IE 9]>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="/Scripts/libs/modernizr.min.js"></script>
+
+
+</head>
+
+<body data-spy="scroll" data-target="#main-nav" data-offset="200">
+    <!-- ==============================================
+        CSS
+        =============================================== -->
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/flexslider.css" rel="stylesheet" />
+    <link href="~/Content/designr-theme-green.css" rel="stylesheet" />
+    <link href="~/Content/SyntaxHighlighter/shCore.css" rel="stylesheet" />
+    <link href="~/Content/SyntaxHighlighter/shThemeDefault.css" rel="stylesheet" />
+    <link href="~/Content/edits.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+
+    </head>
+    <body>
+        <!-- ==============================================
+        MAIN NAV
+        =============================================== -->
+        <div id="main-nav" class="navbar navbar-fixed-top">
+            <div class="container">
+
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#site-nav">
+                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+
+                    <!-- ======= LOGO ========-->
+                    <a class="navbar-brand" href="/Home/index">MANDY THOMPSON<br><span>Web Developer</span></a>
+      
+                    <!-- <a class="navbar-brand scrollto ir-logo" href="#">Mandy Thompson<br><span>Web Developer</span></a> -->
+
+                </div>
+
+                <div id="site-nav" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About Me", "About", "Home")</li>
+                        <li>@Html.ActionLink("Portfolio", "Portfolio", "Home")</li>
+                        <!-- <li>@Html.ActionLink("Contact Me", "Contact", "Home")</li> -->
+                    </ul>
+                </div><!--End navbar-collapse -->
+
+            </div><!--End container -->
+
+        </div><!--End main-nav -->
+
+        <div class="container body-content">
+            @RenderBody()
+
+       
+    <!-- ==============================================
+    FOOTER
+    =============================================== -->
+    <footer id="main-footer">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-sm-6 left-col">
+                    <h1 class="small-logo">MANDY THOMPSON<br><span>Web Developer</span></h1>
+                    <ul class="footer-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About Me", "About", "Home")</li>
+                        <li>@Html.ActionLink("Portfolio", "Portfolio", "Home")</li>
+                        <!--<li><a class="scrollto" href="#contact">Contact</a></li>-->
+                    </ul>
+                    <p>&copy;Copyright 2013 / All Rights Reserved</p>
+                </div>
+
+                <div class="col-sm-6 right-col">
+                    <h2>Who Am I?</h2>
+                    <p>I am an enthusiast who enjoys online digital and offline world. I make high quality graphics and clean html5 and css3 codes. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula.</p>
+                </div>
+
+            </div><!-- End row -->
+
+        </div><!-- End container -->
+
+    </footer><!-- End footer -->
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/SyntaxHighlighter/shCore.js"></script>
+    <script src="~/Scripts/SyntaxHighlighter/shBrushJScript.js"></script>
+    <script>window.jQuery || document.write('<script src="/Scripts/libs/jquery-1.8.2.min.js">\x3C/script>')</script>
+    <script src="/Scripts/libs/bootstrap.min.js"></script>
+    <script src='/Scripts/jquery.scrollto.js'></script>
+    <script src='/Scripts/jquery.flexslider.min.js'></script>
+    <script src='/Scripts/twitterFetcher_v10_min.js'></script>
+    <script src='/Scripts/jquery.masonry.min.js'></script>
+    <script src="/Scripts/waypoints.min.js"></script>
+    <script src="/Scripts/jquery.easypiechart.js"></script>
+    <script src="/Scripts/jquery.backstretch.min.js"></script>
+    <script src="/Scripts/contact.js"></script>
+    <script src="/Scripts/designr.js"></script>
+    <script src="~/Scripts/edit.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
