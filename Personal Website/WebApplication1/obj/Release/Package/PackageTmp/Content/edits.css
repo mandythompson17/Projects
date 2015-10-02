@@ -1,8 +1,46 @@
 ﻿/*Edits*/
 
+/*--Main Nav--*/
+#main-nav.nothome .navbar-brand{
+    color:#21b799;
+}
+
+#main-nav.nothome{
+    background:#fff;
+    border-bottom:1px solid #ddd;
+}
+
+#main-nav.nothome .navbar-toggle{
+    color:#21b799;
+    border-color:#21b799;
+}
+
+#main-nav.nothome .navbar-toggle .icon-bar{
+    background:#21b799;
+}
+
+#main-nav.nothome .container{
+    padding:10px 20px;
+}
+
+#main-nav.nothome .nav a,
+#main-nav.nothome .nav a:active,
+#main-nav.nothome .nav a:hover{
+    color:#21b799;
+}
+
+#main-nav.nothome .nav a:hover:before,
+#main-nav.nothome .nav li.active a:before {
+	color: #21b799;
+	text-shadow: 12px 0 #21b799, -12px 0 #21b799;
+}
+
+/*--Index--*/
 .jumbotron .message-box {
     width: 110%;
 }
+
+/*--About--*/
 #about a {
     color:#FFF;
 }
@@ -12,6 +50,25 @@
     font-weight:400;
 }
 
+.skillsicon {
+    font-size: 70px;
+    padding-top: 50px;
+}
+
+.skillglyph {
+  display: inline-block;
+  line-height: 170px;
+	font-size:50px;
+	font-weight:300;
+  z-index: 2;
+}
+.skillglyph:after {
+  content: "\2601";
+  margin-left: 0.1em;
+  font-size: 40px;
+}
+
+/*--Portfolio--*/
 .modal-footer {
     border-top: none;
 }
@@ -51,3 +108,4 @@ h3.fizz {
 h3.buzz {
     color: #008000;
 }
+
