@@ -48,9 +48,21 @@
     color:#FFF;
 }
 
+.linkedinbtn {
+    margin: 20px;
+}
+
+#services {
+    padding-top: 60px;
+}
+
 .edu-descrip p {
     color: #444;
     font-weight:400;
+}
+
+#skills {
+    padding-top: 40px;
 }
 
 .skillsicon {
@@ -69,6 +81,10 @@
   content: "\2601";
   margin-left: 0.1em;
   font-size: 40px;
+}
+
+.aboutbtn {
+    margin-left: 400px;
 }
 
 /*--Portfolio--*/
