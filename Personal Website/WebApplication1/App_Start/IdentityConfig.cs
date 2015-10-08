@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using WebApplication1.Models;
+using System.Configuration;
+using SendGrid;
 
 namespace WebApplication1
 {
@@ -19,6 +21,13 @@ namespace WebApplication1
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
+            var username = ConfigurationManager.AppSettings["SendGridUserName"];
+            var password = ConfigurationManager.AppSettings["SendGridUserPassword"];
+            var from = ConfigurationManager.AppSettings["ContactEmail"];
+
+            SendGridMessage myMessage = new SendGridMessage();
+            myMessage.AddTo(Message.Destination);
+            myMessage.Fromn 
             return Task.FromResult(0);
         }
     }

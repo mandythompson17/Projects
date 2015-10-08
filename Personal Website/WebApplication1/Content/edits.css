@@ -88,6 +88,7 @@
 }
 
 /*--Portfolio--*/
+
 .modal-footer {
     border-top: none;
 }
@@ -128,3 +129,64 @@ h3.buzz {
     color: #008000;
 }
 
+/*--Blog--*/
+#blog{
+    background-color: #fff;
+    padding-top: 60px;
+}
+
+
+#blog.blog-index {
+    padding-top: 0;
+}
+
+.blog-page {
+    padding-top: 40px;
+}
+
+.blog-header {
+    background-color: #a2d7c8;
+    padding: 10px 0 20px 0;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 30px;
+    padding-bottom: 0;
+    padding-top: 80px;
+}
+
+.blog-header .page-header {
+    border-bottom: none;
+}
+
+.blog-header h1 {
+    font-size: 90px;
+    font-weight: bolder;
+    margin-top: 15px;
+    padding-bottom: 20px;
+    text-shadow: 10px 6px 1px #fff;
+}
+
+.blog-header small {
+    text-shadow: none;
+}
+
+
+.blog-post h2 {
+    font-size: 3.75em;
+}
+
+.blog-post p {
+    color: #000;
+}
+
+.blog-post .lead, .blog-page .lead {
+    font-weight: bolder;
+}
+
+.author {
+    color: #d717f5;
+}
+
+.end-post {
+    border-width: 5px;
+}

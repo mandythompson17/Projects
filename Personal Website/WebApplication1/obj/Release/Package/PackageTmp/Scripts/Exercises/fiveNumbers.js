@@ -1,4 +1,7 @@
-﻿
+﻿//Five Numbers//
+
+//Get Numbers//
+
 //Max of Five//
 function maxOfFive(num1, num2, num3, num4, num5) {
     var num1 = parseInt(document.getElementById('textBox1').value);

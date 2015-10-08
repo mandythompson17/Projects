@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "DeletePost";
+}
+<div class="container blog">
+    <h2>Delete Post</h2>
+
+    Are you sure you want to delete this post?
+
+    <form action="@Url.Action("DeletePost", "Blog")" method="post">
+        Title: @Model.Title <br />
+        Body: @Model.Body <br />
+        <button type="submit">Delete</button>
+    </form>
+</div>

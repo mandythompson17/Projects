@@ -1,0 +1,14 @@
+﻿@model WebApplication1.Models.BlogPost
+
+@{
+    ViewBag.Title = "Create";
+}
+<div class="container blog blog-page">
+    <h2>Create</h2>
+
+    <form action="@Url.Action("Create", "Blog")" method="post">
+        Title: <input type="text" name="Title" /> <br />
+        Body: <input type="text" name="Body" /> <br />
+        <button type="submit">Create</button>
+    </form>
+</div>

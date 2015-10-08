@@ -1,0 +1,15 @@
+﻿@model WebApplication1.Models.BlogPost
+
+@{
+    ViewBag.Title = "EditPost";
+}
+
+<div class="container blog">
+    <h2>EditPost</h2>
+
+    <form action="@Url.Action("EditPost", "Blog")" method="post">
+        Title: <input type="text" name="Title" value="@Model.Title" /><br />
+        Body: <input type="text" name="Body" value="@Model.Body" /><br />
+        <button type="submit">Save Changes</button>
+    </form>
+</div>

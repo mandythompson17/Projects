@@ -108,3 +108,5 @@ C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplica
 C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
 C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\obj\Debug\WebApplication1.pdb
+C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\SendGrid.SmtpApi.dll
+C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\SendGridMail.dll

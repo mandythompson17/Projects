@@ -18,6 +18,17 @@ namespace WebApplication1
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "NewSlug",
+                url: "Blog/{slug}",
+                defaults: new
+                {
+                    controller = "Posts",
+                    action = "Details",
+                    slug = UrlParameter.Optional
+                }
+            );
         }
     }
 }
