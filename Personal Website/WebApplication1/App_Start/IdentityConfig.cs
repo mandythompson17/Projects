@@ -13,6 +13,7 @@ using Microsoft.Owin.Security;
 using WebApplication1.Models;
 using System.Configuration;
 using SendGrid;
+using System.Web.Services.Description;
 
 namespace WebApplication1
 {
@@ -25,9 +26,8 @@ namespace WebApplication1
             var password = ConfigurationManager.AppSettings["SendGridUserPassword"];
             var from = ConfigurationManager.AppSettings["ContactEmail"];
 
-            SendGridMessage myMessage = new SendGridMessage();
-            myMessage.AddTo(Message.Destination);
-            myMessage.Fromn 
+         //   SendGridMessage myMessage = new SendGridMessage();
+           // myMessage.AddTo(Message.Destination);
             return Task.FromResult(0);
         }
     }

@@ -83,8 +83,9 @@ namespace WebApplication1.Controllers
                     // path on physical drive on server
                     var absPath = Server.MapPath("~" + filePath);
                     // media url for relative 
-                    blogPost.MediaURL = filePath + image.FileName;
+                    blogPost.MediaURL = filePath + "/" + image.FileName;
                     // save image
+                    Directory.CreateDirectory(absPath);
                     image.SaveAs(Path.Combine(absPath, image.FileName));
                 }
 
@@ -119,27 +120,16 @@ namespace WebApplication1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles="Admin")]
-        public ActionResult Edit([Bind(Include = "Id,Created,Updated,Title,Body,Category,MediaURL,Published")] BlogPost blogPost)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,Category,MediaURL,Published")] BlogPost blogPost)
         {
             if (ModelState.IsValid)
             {
-                //var Slug = StringUtilities.URLFriendly(blogPost.Title);
-                //if (String.IsNullOrWhiteSpace(Slug))
-                //{
-                //    ModelState.AddModelError("Title", "Invalid title.");
-                //    return View(blogPost);
-                //}
-                //if (db.Posts.Any(p => p.Slug == Slug))
-                //{
-                //    ModelState.AddModelError("Title", "The title must be unique.");
-                //    return View(blogPost);
-                //}
-                //blogPost.Slug = Slug;
                 blogPost.Updated = System.DateTimeOffset.Now;
-               // db.Posts.Attach(blogPost);
+                db.Posts.Attach(blogPost);
                 db.Entry(blogPost).Property("Body").IsModified = true;
                 db.Entry(blogPost).Property("Category").IsModified = true;
                 db.Entry(blogPost).Property("MediaURL").IsModified = true;
+                db.Entry(blogPost).Property("Updated").IsModified = true;
                 db.Entry(blogPost).Property("Published").IsModified = true;
                 //db.Entry(blogPost).State = EntityState.Modified;
                 db.SaveChanges();

@@ -20,6 +20,7 @@
             {
                 <div class="row text-center">
                     <a class="btn btn-success" href="@Url.Action("Create")">Create New</a>
+                    <hr />
                 </div>
             } 
             <br /><br />
@@ -31,7 +32,8 @@
                   
                     @if (User.IsInRole("Admin"))
                     {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+                        <span> | </span>
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                     }
                   

@@ -1,12 +1,12 @@
 namespace WebApplication1.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Configuration;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using System.Collections.Generic;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.AspNet.Identity;
     using WebApplication1.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WebApplication1.Models.ApplicationDbContext>
@@ -18,20 +18,69 @@ namespace WebApplication1.Migrations
 
         protected override void Seed(WebApplication1.Models.ApplicationDbContext context)
         {
+        //    var roleManager = new RoleManager<IdentityRole>(
+        //         new RoleStore<IdentityRole>(context));
+
+        //    if (!context.Roles.Any(r => r.Name == "Admin"))
+        //    {
+        //        roleManager.Create(new IdentityRole { Name = "Admin" });
+        //    }
+
+        //    var userManager = new UserManager<ApplicationUser>(
+        //     new UserStore<ApplicationUser>(context));
+
+        //    if (!context.Users.Any(u => u.Email == ConfigurationManager.AppSettings["AdminUser"])) 
+        //    {
+        //        userManager.Create(new ApplicationUser
+        //        {
+        //            UserName = ConfigurationManager.AppSettings["AdminUser"],
+        //            Email = ConfigurationManager.AppSettings["AdminUser"],
+        //            FirstName = "Mandy",
+        //            LastName = "Thompson",
+        //            DisplayName = "Mandy"
+        //        }, ConfigurationManager.AppSettings["AdminPassword"]);
+        //    }
+
+        //    var userId = userManager.FindByEmail(ConfigurationManager.AppSettings["AdminUser"]).Id;
+        //    userManager.AddToRole(userId, "Admin");
+
+        //    if (!context.Roles.Any(r => r.Name == "Moderator"))
+        //    {
+        //        roleManager.Create(new IdentityRole { Name = "Moderator" });
+        //    }
+
+        //    userManager = new UserManager<ApplicationUser>(
+        //     new UserStore<ApplicationUser>(context));
+
+        //    if (!context.Users.Any(u => u.Email == ConfigurationManager.AppSettings["ModUser"]))
+        //    {
+        //        userManager.Create(new ApplicationUser
+        //        {
+        //            UserName = ConfigurationManager.AppSettings["ModUser"],
+        //            Email = ConfigurationManager.AppSettings["ModUser"],
+        //            FirstName = "Moderator",
+        //            LastName = "M",
+        //            DisplayName = "Moderator"
+        //        }, ConfigurationManager.AppSettings["ModPassword"]);
+        //    }
+
+        //    userId = userManager.FindByEmail(ConfigurationManager.AppSettings["ModUser"]).Id;
+        //    userManager.AddToRole(userId, "Moderator");
+
+        //}
+
+            var AdminUser = ConfigurationManager.AppSettings["AdminUser"];
+            
             var roleManager = new RoleManager<IdentityRole>(
-                    new RoleStore<IdentityRole>(context));
+                new RoleStore<IdentityRole>(context));
 
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
                 roleManager.Create(new IdentityRole { Name = "Admin" });
             }
-            if (!context.Roles.Any(r => r.Name == "Moderator"))
-            {
-                roleManager.Create(new IdentityRole { Name = "Moderator" });
-            }
 
             var userManager = new UserManager<ApplicationUser>(
-                    new UserStore<ApplicationUser>(context));
+             new UserStore<ApplicationUser>(context));
 
             if (!context.Users.Any(u => u.Email == "mandy.thompson17@gmail.com"))
             {
@@ -41,12 +90,20 @@ namespace WebApplication1.Migrations
                     Email = "mandy.thompson17@gmail.com",
                     FirstName = "Mandy",
                     LastName = "Thompson",
-                    DisplayName = "MandyThompson"
-                }, "biggy7x");
+                    DisplayName = "Mandy"
+                }, "Working4theWeekend");
             }
 
             var userId = userManager.FindByEmail("mandy.thompson17@gmail.com").Id;
             userManager.AddToRole(userId, "Admin");
+
+            if (!context.Roles.Any(r => r.Name == "Moderator"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Moderator" });
+            }
+
+            userManager = new UserManager<ApplicationUser>(
+             new UserStore<ApplicationUser>(context));
 
             if (!context.Users.Any(u => u.Email == "moderator@coderfoundry.com"))
             {
@@ -54,14 +111,15 @@ namespace WebApplication1.Migrations
                 {
                     UserName = "moderator@coderfoundry.com",
                     Email = "moderator@coderfoundry.com",
-                    FirstName = "Coder",
-                    LastName = "Foundry",
-                    DisplayName = "CoderFoundry"
+                    FirstName = "Moderator",
+                    LastName = "M",
+                    DisplayName = "Moderator"
                 }, "Password-1");
             }
 
-            var userId2 = userManager.FindByEmail("moderator@coderfoundry.com").Id;
-            userManager.AddToRole(userId2, "Moderator");
+            userId = userManager.FindByEmail("moderator@coderfoundry.com").Id;
+            userManager.AddToRole(userId, "Moderator");
+
         }
     }
 }

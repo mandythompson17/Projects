@@ -247,6 +247,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="private.config" />
+    <Content Include="connections.config" />
     <None Include="Properties\PublishProfiles\mthompson %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\mthompson.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -474,12 +475,16 @@
     <Content Include="Scripts\waypoints.js" />
     <Content Include="Scripts\waypoints.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />

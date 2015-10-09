@@ -173,6 +173,7 @@ h3.buzz {
 
 .blog-post h2 {
     font-size: 3.75em;
+    line-height: 100%;
 }
 
 .blog-post p {
@@ -189,4 +190,9 @@ h3.buzz {
 
 .end-post {
     border-width: 5px;
+}
+
+/*--Account--*/
+.account-page {
+    padding-top: 40px;
 }

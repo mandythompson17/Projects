@@ -42,8 +42,7 @@
     <link href="~/Content/edits.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 
-    </head>
-    <body>
+    
         <!-- ==============================================
         MAIN NAV
         =============================================== -->
@@ -68,6 +67,8 @@
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("About Me", "About", "Home")</li>
                         <li>@Html.ActionLink("Portfolio", "Portfolio", "Home")</li>
+                        <li>@Html.ActionLink("Blog", "Index", "BlogPosts")</li>
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
                         <!-- <li>@Html.ActionLink("Contact Me", "Contact", "Home")</li> -->
                     </ul>
                 </div><!--End navbar-collapse -->
@@ -99,11 +100,13 @@
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("About Me", "About", "Home")</li>
                         <li>@Html.ActionLink("Portfolio", "Portfolio", "Home")</li>
+                        <li>@Html.ActionLink("Blog", "Index", "BlogPosts")</li>
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
                         <!--<li><a class="scrollto" href="#contact">Contact</a></li>-->
                     </ul>
                     <p>&copy;Copyright 2015 / All Rights Reserved</p>
                 </div>
-
+            
                 <div class="col-sm-6 right-col">
                     <h2>Who Am I?</h2>
                     <p>War Eagle! I am an enthusiastic coding member of the Auburn Family.<br /> Benvenuti nel mio sito web!</p>
