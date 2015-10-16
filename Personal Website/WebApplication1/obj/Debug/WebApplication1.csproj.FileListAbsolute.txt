@@ -113,3 +113,8 @@ C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplica
 C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\Web.config
 C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\Web.Debug.config
 C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\Web.Release.config
+C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\PagedList.dll
+C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\PagedList.Mvc.dll
+C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\PagedList.xml
+C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\PagedList.Mvc.xml
+C:\Users\Mandy\Documents\Visual Studio 2013\Projects\Personal Website\WebApplication1\bin\Owin.Security.Providers.dll

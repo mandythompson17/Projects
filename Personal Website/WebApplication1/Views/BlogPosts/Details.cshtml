@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<div class="container blog blog-page">
+<div id="blog" class="container blog blog-page">
     <div class="row">
 
         <!-- Blog Post Content Column -->
@@ -17,8 +17,15 @@
                 by <span class="author">Mandy Thompson</span>
             </p>
             <hr>
-            <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> @Html.DisplayFor(model => model.Created)</p>
+            <!-- Date/Time and Category -->
+            <ul class="list-unstyled">
+                <li>
+                    <span class="glyphicon glyphicon-time"></span> @Model.Created.ToString("MMMM dd, yyyy, H:mm tt")
+                </li>
+                <li>
+                    <i class="fa fa-folder"></i> @Html.DisplayFor(model => model.Category)
+                </li>
+            </ul>
             <hr>
             <!-- Preview Image -->
             @if (Model.MediaURL != null)
@@ -31,43 +38,63 @@
             <hr>
             @if (Model.Updated != null)
             {
-                <p>Updated <span class="glyphicon glyphicon-time"></span> @Html.DisplayFor(model => model.Updated) </p>
+                <p class="update-time">Updated <span class="glyphicon glyphicon-time"></span> @Html.DisplayFor(model => model.Updated) </p>
                 <hr />
             }
 
-
-
             
+            @if (User.Identity.IsAuthenticated)
+            { 
+                <!-- Blog Comments -->
 
-
-    
-            <!-- Blog Comments -->
-            <!-- Comments Form -->
-            <div class="well">
-                <h4>Leave a Comment:</h4>
-                <form role="form">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            <hr>
-            <!-- Posted Comments -->
-            <!-- Comment 
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        Start Bootstrap
-                        <small>August 25, 2014 at 9:30 PM</small>
-                    </h4>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <!-- Comments Form -->
+                <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form" method="post" action="@Url.Action("SubmitComment")">
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("PostId", Model.Id)
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" name="Body"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
-            </div>
-            <!-- Comment 
+                <hr>
+
+                <!-- Posted Comments -->
+                foreach (var comment in Model.Comments)
+                {
+                    if (Model.Id == comment.PostId)
+                    {
+                          <!-- Comment -->
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    @Html.DisplayFor(modelComment => comment.Author.DisplayName)
+                                    <small>@comment.Created.ToString("MMMM dd, yyyy, H:mm tt")</small>
+                                </h4>
+                                @Html.Raw(comment.Body)  
+                                <br />    
+                                <a action="@Url.Action("EditComment", new { id = comment.Id })" data-toggle="modal" data-target="#commentEdit">Edit</a>
+                                <button action="@Url.Action("DeleteComment", new { id = comment.Id })" type="submit">Delete</button>
+
+                            </div>
+                        </div>
+                        <!-- Comment -->
+                    }
+                }
+                
+            }
+            
+            @if (!User.Identity.IsAuthenticated)
+            {
+            <span class="text-center login-link glyphicon glyphicon-log-in"> @Html.ActionLink("LOGIN TO LEAVE A COMMENT", "Login", "Account") </span>
+            <hr />
+            }
+         <!-- 
             <div class="media">
                 <a class="pull-left" href="#">
                     <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -78,7 +105,8 @@
                         <small>August 25, 2014 at 9:30 PM</small>
                     </h4>
                     Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    <!-- Nested Comment 
+                    
+             <!-- Nested Comment 
                     <div class="media">
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -99,7 +127,69 @@
                 </p>
             </div> 
        
-        
+        <!-- ==============================================
+                               MODAL
+         =============================================== -->
+
+        <!--Edit Comment-->
+        <div class="modal fade" id="commentEdit" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">
+                            ×
+                        </button>
+                        <h1 class="modal-title" id="myModalLabel">Edit Comment</h1>
+                    </div>
+                    <form role="form" method="post" action="@Url.Action("EditComment")">
+                        <div class="modal-body col-sm-12">
+
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("PostId", Model.Id)
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3" name="Body"></textarea>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(modelComment => comment.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(modelComment => comment.Body, new { htmlAttributes = new { @class = "form-control", rows = "3" } })
+                                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer no-margin">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Delete Comment-->
+        <div class="modal fade" id="commentDelete" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">
+                            ×
+                        </button>
+                        <h1 class="modal-title" id="myModalLabel">Edit Comment</h1>
+                    </div>
+                    <div class="modal-body col-sm-12">
+
+                    </div>
+                    <div class="modal-footer no-margin">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Blog Sidebar Widgets Column -->
         <div class="col-md-4">
@@ -116,127 +206,12 @@
                 </div>
                 <!-- /.input-group -->
             </div>
-            <!-- Blog Categories Well -->
-            <div class="well">
-                <h4>Blog Categories</h4>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#">Category Name</a>
-                            </li>
-                            <li>
-                                <a href="#">Category Name</a>
-                            </li>
-                            <li>
-                                <a href="#">Category Name</a>
-                            </li>
-                            <li>
-                                <a href="#">Category Name</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#">Category Name</a>
-                            </li>
-                            <li>
-                                <a href="#">Category Name</a>
-                            </li>
-                            <li>
-                                <a href="#">Category Name</a>
-                            </li>
-                            <li>
-                                <a href="#">Category Name</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /.row -->
-            </div>
             <!-- Side Widget Well -->
             <div class="well">
-                <h4>Side Widget Well</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                <h4>What is this blog about?</h4>
+                <p>This blog is dedicated to portraying my learning experience at Coder Foundry.</p>
             </div>
         </div>
     </div>
 </div>
     <!-- /.row -->
-
-<!--
-    <h2>Details</h2> -->
-
-    <div>
-     <!--   <h4>BlogPost</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Created)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Created)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Updated)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Updated)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Title)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Slug)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Slug)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Body)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Body)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Category)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Category)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.MediaURL)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MediaURL)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Published)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Published)
-            </dd>
-
-        </dl>
-    </div> -->
-   
-</div>

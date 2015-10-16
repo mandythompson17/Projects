@@ -135,13 +135,8 @@ h3.buzz {
     padding-top: 60px;
 }
 
-
 #blog.blog-index {
     padding-top: 0;
-}
-
-.blog-page {
-    padding-top: 40px;
 }
 
 .blog-header {
@@ -170,29 +165,65 @@ h3.buzz {
     text-shadow: none;
 }
 
+.btn-create {
+    background-color: #21b799;
+}
 
 .blog-post h2 {
     font-size: 3.75em;
     line-height: 100%;
 }
 
-.blog-post p {
+.blog-post p, .blog-page p {
     color: #000;
 }
 
+
+
 .blog-post .lead, .blog-page .lead {
     font-weight: bolder;
+    color: #000;
 }
 
 .author {
     color: #d717f5;
 }
 
+.blog-post ul li, .blog-page ul li {
+    display: inline;
+    color: #000;
+    padding: 10px;
+    font-size: 16px;
+}
+
 .end-post {
     border-width: 5px;
 }
 
+.blog-page {
+    padding-top: 40px;
+}
+
+.update-time {
+    color: #000;
+    font-size: 16px;
+}
+
+.login-link {
+    font-size: 18px;
+}
+
+.warning {
+    color:#ff0000;
+}
+
+
 /*--Account--*/
 .account-page {
     padding-top: 40px;
+}
+
+/*--Contact--*/
+#contact {
+    background-image: url('../assets/contact-bg.jpg');
 }

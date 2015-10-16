@@ -69,7 +69,6 @@ namespace WebApplication1.Migrations
 
         //}
 
-            var AdminUser = ConfigurationManager.AppSettings["AdminUser"];
             
             var roleManager = new RoleManager<IdentityRole>(
                 new RoleStore<IdentityRole>(context));
@@ -82,19 +81,22 @@ namespace WebApplication1.Migrations
             var userManager = new UserManager<ApplicationUser>(
              new UserStore<ApplicationUser>(context));
 
-            if (!context.Users.Any(u => u.Email == "mandy.thompson17@gmail.com"))
+            var AdminUser = ConfigurationManager.AppSettings["AdminUser"];
+            var AdminPassword = ConfigurationManager.AppSettings["AdminPassword"];
+
+            if (!context.Users.Any(u => u.Email == AdminUser))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "mandy.thompson17@gmail.com",
-                    Email = "mandy.thompson17@gmail.com",
+                    UserName = AdminUser,
+                    Email = AdminUser,
                     FirstName = "Mandy",
                     LastName = "Thompson",
                     DisplayName = "Mandy"
-                }, "Working4theWeekend");
+                }, AdminPassword);
             }
 
-            var userId = userManager.FindByEmail("mandy.thompson17@gmail.com").Id;
+            var userId = userManager.FindByEmail(AdminUser).Id;
             userManager.AddToRole(userId, "Admin");
 
             if (!context.Roles.Any(r => r.Name == "Moderator"))
@@ -105,19 +107,22 @@ namespace WebApplication1.Migrations
             userManager = new UserManager<ApplicationUser>(
              new UserStore<ApplicationUser>(context));
 
-            if (!context.Users.Any(u => u.Email == "moderator@coderfoundry.com"))
+            var ModUser = ConfigurationManager.AppSettings["ModUser"];
+            var ModPassword = ConfigurationManager.AppSettings["ModPassword"];
+
+            if (!context.Users.Any(u => u.Email == ModUser))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "moderator@coderfoundry.com",
-                    Email = "moderator@coderfoundry.com",
+                    UserName = ModUser,
+                    Email = ModUser,
                     FirstName = "Moderator",
                     LastName = "M",
                     DisplayName = "Moderator"
-                }, "Password-1");
+                }, ModPassword);
             }
 
-            userId = userManager.FindByEmail("moderator@coderfoundry.com").Id;
+            userId = userManager.FindByEmail(ModUser).Id;
             userManager.AddToRole(userId, "Moderator");
 
         }

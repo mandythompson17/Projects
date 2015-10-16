@@ -1,11 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Owin.Security.Providers.OpenID.Infrastructure;
+using SendGrid;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -20,12 +26,28 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        //GET: Contact Page
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+
+        //POST: Contact Form
+        [HttpPost]
+        public ActionResult Contact(string contactname, string email, string subject, string comments)
+        {
+            IdentityMessage message = new IdentityMessage();
+            EmailService emails = new EmailService();
+
+            message.Subject = subject;
+            message.Destination = ConfigurationManager.AppSettings["ContactEmail"];
+            message.Body = "From: " + "\nEmail: " + email + "\n" + comments;
+            emails.SendAsync(message);
+            ViewBag.Message = "1";
+            return RedirectToAction("Contact");
+        }
+
+
         public ActionResult Portfolio()
         {
             return View();

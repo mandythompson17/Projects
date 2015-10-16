@@ -1,10 +1,13 @@
-﻿namespace WebApplication1.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
+
+namespace WebApplication1.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
     public class BlogPost
     {
         public BlogPost()

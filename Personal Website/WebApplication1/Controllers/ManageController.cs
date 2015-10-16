@@ -10,6 +10,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

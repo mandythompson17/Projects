@@ -1,4 +1,8 @@
-﻿@model IEnumerable<WebApplication1.Models.BlogPost>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<WebApplication1.Models.BlogPost>
+
 
 @{
     ViewBag.Title = "Blog Index";
@@ -9,7 +13,7 @@
     <div class="row text-center blog-header">
         <h1 class="page-header">
             My Blog
-            <br /><br /><small>tag line</small>
+            <br /><br /><small>Learning to Code</small>
         </h1>
     </div>
     <div class="row">
@@ -19,42 +23,51 @@
             @if (User.IsInRole("Admin"))
             {
                 <div class="row text-center">
-                    <a class="btn btn-success" href="@Url.Action("Create")">Create New</a>
+                    <a class="btn btn-success btn-create" href="@Url.Action("Create")">Create New</a>
                     <hr />
                 </div>
             } 
             <br /><br />
             
             <!-- Blog Posts -->
-            @foreach (var item in Model.Reverse())
-            {
-                <div class="blog-post">
-                  
-                    @if (User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
-                        <span> | </span>
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    }
-                  
-                    <h2>
-                        <a href="@Url.Action("Details", new { Slug = item.Slug })">@Html.DisplayFor(modelItem => item.Title)</a>
-                    </h2><br />
-                    <p class="lead">
-                        by <span class="author">Mandy Thompson</span>
-                    </p>
-                    <p><span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Created)</p>
-                    <hr>
-                    @if (item.MediaURL != null)
-                    {
-                        <img class="img-responsive" src="@item.MediaURL" alt="">
-                        <br>
-                    }
-                    <p>@Html.Raw(item.Body)</p>
-                    <a class="btn btn-primary" href="@Url.Action("Details", new { Slug = item.Slug })">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    <hr class="end-post">
-                </div>
-            }
+            <div id="blogpost-container">
+                @foreach (var item in Model)
+                {
+                    <div class="blog-post">
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                            <span> | </span>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        }
+
+                        <h2>
+                            <a href="@Url.Action("Details", new { Slug = item.Slug })">@Html.DisplayFor(modelItem => item.Title)</a>
+                        </h2><br />
+                        <p class="lead">
+                            by <span class="author">Mandy Thompson</span>
+                        </p>
+                        <ul class="list-unstyled">
+                            <li>
+                                <span class="glyphicon glyphicon-time"></span> @item.Created.ToString("MMMM dd, yyyy, H:mm tt")
+                            </li>
+                            <li>
+                                <i class="fa fa-folder"></i> @Html.DisplayFor(modelItem => item.Category)
+                            </li>
+                        </ul>
+                        <hr>
+                        @if (item.MediaURL != null)
+                        {
+                            <img class="img-responsive" src="@item.MediaURL" alt="">
+                            <br>
+                        }
+                        <p>@Html.Raw(item.Body)</p>
+                        <a class="btn btn-primary" href="@Url.Action("Details", new { Slug = item.Slug })">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <hr class="end-post">
+                    </div>
+                }
+            </div>
 
             <!-- Template Blog Post
             <h2>
@@ -72,29 +85,35 @@
             <hr>-->
           
             <!-- Pager -->
-            <ul class="pager">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("Index", new  { page, ViewBag.Query }))
+           <!-- <ul class="pager">
                 <li class="next">
                     <a href="#">Older &rarr;</a>
                 </li>
-             <!-- <li class="previous">
+              <li class="previous">
                     <a href="#">Newer &larr;</a>
-                </li> -->  
-            </ul>
+                </li>  
+            </ul>  -->
         </div>
+
+
         <!-- Blog Sidebar Widgets Column -->
         <div class="col-md-4">
             <!-- Blog Search Well -->
             <div class="well">
                 <h4>Search Blog</h4>
-                <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </div>
-                <!-- /.input-group -->
+                <form method="get" action="@Url.Action()">
+                    <div class="input-group">
+                        <input name="Query" type="text" class="form-control" value="@ViewBag.Query">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <!-- /.input-group -->
+                </form>
             </div>
             <!-- Blog Categories Well -->
             <div class="well">
@@ -102,16 +121,16 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <ul class="list-unstyled">
-                            <li class="active">
-                                <a href="#">Category Name</a>
+                            <li>
+                                @Html.ActionLink("Professional", "Index", new { category = "Professional" })
                             </li>
                             <li>
-                                <a href="#">Category Name</a>
+                                @Html.ActionLink("Personal", "Index", new { category = "Personal" })
                             </li>
                         </ul>
                     </div>
                     <!-- /.col-lg-6 -->
-                    <div class="col-lg-6">
+                   <!-- <div class="col-lg-6">
                         <ul class="list-unstyled">
                             <li>
                                 <a href="#">Category Name</a>
@@ -133,8 +152,8 @@
             </div>
             <!-- Side Widget Well -->
             <div class="well">
-                <h4>Side Widget Well</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                <h4>What is this blog about?</h4>
+                <p>This blog is dedicated to portraying my learning experience at Coder Foundry.</p>
             </div>
         </div>
     </div>
@@ -142,76 +161,3 @@
     <hr>
 </div>
 <!-- /.container -->
-
-<!--<div id ="blog" class="container">
-    <h2>Index</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Updated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Slug)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MediaURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Published)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Updated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Slug)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MediaURL)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Published)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
-
-    </table>
-</div>-->
