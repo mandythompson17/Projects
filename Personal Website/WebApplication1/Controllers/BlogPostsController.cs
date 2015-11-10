@@ -38,6 +38,13 @@ namespace WebApplication1.Controllers
             }
         }
 
+        //GET: Admin Index
+        public ActionResult AdminIndex()
+        {
+            var Posts = db.Posts.ToList();
+            return View(Posts);
+        }
+
 
         // GET: BlogPosts/Details/5
         public ActionResult Details(string Slug)
@@ -220,7 +227,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult SubmitComment([Bind(Include = "Id, PostId, Body")] Comment comment)
+        public ActionResult SubmitComment([Bind(Include = "Id, PostId, Body, AuthorId")] Comment comment)
         {
             var blogPost = db.Posts.Find(comment.PostId);
             if (blogPost == null)
@@ -233,7 +240,6 @@ namespace WebApplication1.Controllers
                 TempData["Body"] = comment.Body;
 
             }
-            comment.AuthorId = User.Identity.GetUserId();
             comment.Created = System.DateTimeOffset.Now;
             db.Comments.Add(comment);
             db.SaveChanges();
@@ -268,7 +274,7 @@ namespace WebApplication1.Controllers
                 comment.Updated = System.DateTimeOffset.Now;
                 db.Comments.Attach(comment);
                 db.Entry(comment).Property("Body").IsModified = true;
-                db.Entry(blogPost).Property("Updated").IsModified = true;
+                db.Entry(comment).Property("Updated").IsModified = true;
                 db.SaveChanges();
                 return RedirectToAction("Details", new { blogPost.Slug });
             }
@@ -277,32 +283,31 @@ namespace WebApplication1.Controllers
 
         // GET: Delete Comment
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult DeleteComment(int? id)
+        public ActionResult DeleteComment(int? idd)
         {
-            if (id == null)
+            if (idd == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comments.Find(id);
+            Comment comment = db.Comments.Find(idd);
             if (comment == null)
             {
                 return HttpNotFound();
             }
             return View(comment);
-        }
+        } 
 
         // POST: Delete Comment
-     /*   [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Moderator")]
-        public ActionResult DeleteCommentConfirmed(int id)
+        public ActionResult DeleteComment(Comment comment)
         {
-            Comment comment = db.Comments.Find(id);
             BlogPost blogPost = db.Posts.Find(comment.PostId);
             db.Comments.Remove(comment);
             db.SaveChanges();
             return RedirectToAction("Details", new { blogPost.Slug });
-        } */
+        }
 
     }
 

@@ -25,6 +25,8 @@
                 <div class="row text-center">
                     <a class="btn btn-success btn-create" href="@Url.Action("Create")">Create New</a>
                     <hr />
+                    @Html.ActionLink("List of Posts", "AdminIndex")
+                    <hr />
                 </div>
             } 
             <br /><br />
@@ -50,7 +52,7 @@
                         </p>
                         <ul class="list-unstyled">
                             <li>
-                                <span class="glyphicon glyphicon-time"></span> @item.Created.ToString("MMMM dd, yyyy, H:mm tt")
+                                <span class="glyphicon glyphicon-time"></span> @item.Created.ToString("MMMM dd, yyyy, h:mm tt")
                             </li>
                             <li>
                                 <i class="fa fa-folder"></i> @Html.DisplayFor(modelItem => item.Category)
@@ -59,10 +61,12 @@
                         <hr>
                         @if (item.MediaURL != null)
                         {
-                            <img class="img-responsive" src="@item.MediaURL" alt="">
+                            <img class="img-responsive blogImageMax" src="@item.MediaURL" alt="">
                             <br>
                         }
-                        <p>@Html.Raw(item.Body)</p>
+                        <div id="dotcontainer">
+                            <p>@Html.Raw(item.Body)</p>
+                        </div>
                         <a class="btn btn-primary" href="@Url.Action("Details", new { Slug = item.Slug })">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                         <hr class="end-post">
                     </div>
@@ -161,3 +165,11 @@
     <hr>
 </div>
 <!-- /.container -->
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#dotcontainer").dotdotdot();
+        });
+    </script>
+}

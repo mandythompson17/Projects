@@ -19,6 +19,13 @@ namespace WebApplication1.Controllers
             return View(Posts);
         }
 
+        //GET: Admin Index
+        public ActionResult AdminIndex()
+        {
+            var Posts = db.Posts.ToList();
+            return View(Posts);
+        }
+
         // Create new Blog post
         public ActionResult Create()
         {

@@ -41,10 +41,9 @@ namespace WebApplication1.Controllers
 
             message.Subject = subject;
             message.Destination = ConfigurationManager.AppSettings["ContactEmail"];
-            message.Body = "From: " + "\nEmail: " + email + "\n" + comments;
+            message.Body = "From: " + contactname + "\nEmail: " + email + "\n" + comments;
             emails.SendAsync(message);
-            ViewBag.Message = "1";
-            return RedirectToAction("Contact");
+            return RedirectToAction("Index");
         }
 
 

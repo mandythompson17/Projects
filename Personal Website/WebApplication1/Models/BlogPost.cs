@@ -26,7 +26,6 @@ namespace WebApplication1.Models
         public string Body { get; set; }
         public string Category { get; set; }
         public string MediaURL { get; set; }
-        public bool Published { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
     }

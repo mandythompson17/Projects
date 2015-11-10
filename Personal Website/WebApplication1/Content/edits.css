@@ -35,6 +35,10 @@
 	text-shadow: 12px 0 #21b799, -12px 0 #21b799;
 }
 
+#main-nav .nav a {
+    position: inherit;
+}
+
 /*--Main Footer--*/
 
 
@@ -163,10 +167,17 @@ h3.buzz {
 
 .blog-header small {
     text-shadow: none;
+    font-size: 35%;
+    letter-spacing: 0;
 }
 
 .btn-create {
     background-color: #21b799;
+}
+
+.blogImageMax {
+    max-width:400px;
+    margin:0 auto;
 }
 
 .blog-post h2 {
@@ -174,10 +185,9 @@ h3.buzz {
     line-height: 100%;
 }
 
-.blog-post p, .blog-page p {
+.blog-index p, .blog-page p {
     color: #000;
 }
-
 
 
 .blog-post .lead, .blog-page .lead {
@@ -186,7 +196,7 @@ h3.buzz {
 }
 
 .author {
-    color: #d717f5;
+    color: #0033EE;
 }
 
 .blog-post ul li, .blog-page ul li {
@@ -203,6 +213,10 @@ h3.buzz {
 .blog-page {
     padding-top: 40px;
 }
+
+.blog-page th, .blog-page td {
+    color: #444444;
+} 
 
 .update-time {
     color: #000;
@@ -226,4 +240,27 @@ h3.buzz {
 /*--Contact--*/
 #contact {
     background: #a2d7c8;
+    color: #000;
 }
+
+#contact .section-title {
+    color: #000;
+}
+
+#contact-form .form-control {
+    height: 58px;
+    font-size: 22px;
+    padding-left: 34px;
+}
+
+#contact-form input {
+    width: 94%;
+    max-width: 100%;
+}
+
+#contact-form textarea.form-control {
+   width:94%;
+    font-size: 22px;
+    min-width: initial;
+}
+

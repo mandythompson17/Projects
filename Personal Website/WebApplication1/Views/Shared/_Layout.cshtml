@@ -25,11 +25,6 @@
     <![endif]-->
 
     <script type="text/javascript" src="/Scripts/libs/modernizr.min.js"></script>
-
-
-</head>
-
-<body data-spy="scroll" data-target="#main-nav" data-offset="200">
     <!-- ==============================================
         CSS
         =============================================== -->
@@ -43,7 +38,10 @@
     <link href="~/Content/edits.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 
-    
+</head>
+
+<body data-spy="scroll" data-target="#main-nav" data-offset="200">
+
         <!-- ==============================================
         MAIN NAV
         =============================================== -->
@@ -69,7 +67,19 @@
                         <li>@Html.ActionLink("About Me", "About", "Home")</li>
                         <li>@Html.ActionLink("Portfolio", "Portfolio", "Home")</li>
                         <li>@Html.ActionLink("Blog", "Index", "BlogPosts")</li>
-                        <!-- <li>@Html.ActionLink("Contact Me", "Contact", "Home")</li> -->
+                        <li>@Html.ActionLink("Contact Me", "Contact", "Home")</li>
+                        <li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Log Off</a>
+
+                                }
+                            }
+                        </li>
                     </ul>
                 </div><!--End navbar-collapse -->
 
@@ -94,19 +104,31 @@
 
             <div class="row">
 
-                <div class="col-sm-6 left-col">
+                <div class="col-sm-7 left-col">
                     <h1 class="small-logo">MANDY THOMPSON<br><span>Web Developer</span></h1>
                     <ul class="footer-nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("About Me", "About", "Home")</li>
                         <li>@Html.ActionLink("Portfolio", "Portfolio", "Home")</li>
                         <li>@Html.ActionLink("Blog", "Index", "BlogPosts")</li>
-                        <!--<li><a class="scrollto" href="#contact">Contact</a></li>-->
+                        <li>@Html.ActionLink("Contact Me", "Contact", "Home")</li>
+                        <li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Log Off</a>
+
+                                }
+                            }
+                        </li>
                     </ul>
                     <p>&copy;Copyright 2015 / All Rights Reserved</p>
                 </div>
             
-                <div class="col-sm-6 right-col">
+                <div class="col-sm-5 right-col">
                     <h2>Who Am I?</h2>
                     <p>War Eagle! I am an enthusiastic coding member of the Auburn Family.<br /> Benvenuti nel mio sito web!</p>
                 </div>
@@ -131,8 +153,8 @@
     <script src="/Scripts/waypoints.min.js"></script>
     <script src="/Scripts/jquery.easypiechart.js"></script>
     <script src="/Scripts/jquery.backstretch.min.js"></script>
-    <script src="/Scripts/contact.js"></script>
     <script src="/Scripts/designr.js"></script>
+    <script src="~/Scripts/jquery.dotdotdot.min.js"></script>
     <script src="~/Scripts/edit.js"></script>
     @RenderSection("scripts", required: false)
 </body>
