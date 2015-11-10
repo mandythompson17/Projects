@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   
+    <!-- start: Meta -->
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Thompson Bugtracker</title>
+    <meta name="description" content="Bugtracker.">
+    <meta name="author" content="Mandy Thompson">
+    <meta name="keyword" content="Bugtracker">
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- end: Meta -->
+
+    <!-- start: Favicon -->
+    <link rel="shortcut icon" href="~/Assets/img/favicon.ico">
+    <!-- end: Favicon -->
+
+    <!-- start: Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
+    <!-- end: Fonts -->
+
+    @Styles.Render("~/Content/css")
+    <!-- start: CSS -->
+    <link id="bootstrap-style" href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link id="base-style" href="~/Content/style.css" rel="stylesheet" />
+    <link id="base-style-responsive" href="~/Content/style-responsive.css" rel="stylesheet" />
+    <link href="~/Content/glyphicons.css" rel="stylesheet" />
+    <link href="~/Content/halflings.css" rel="stylesheet" />
+    @*<link href="~/Content/font-awesome-ie7.min.css" rel="stylesheet" />*@
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" /> 
+    <link href="~/Content/DataTables-1.10.9/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.10.9/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.10.9/media/css/dataTables.foundation.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.10.9/media/css/dataTables.jqueryui.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.10.9/media/css/jquery.dataTables_themeroller.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.10.9/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery.carousel-3d.default.css" rel="stylesheet" />
+    <link href="~/Content/Edit.css" rel="stylesheet" />
+    <!-- end: CSS -->
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Thompson Bugtracker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Admin")</li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Users", "ListUsers", "Admin")</li>
+                        }
+                        <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
+                        if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Developer"))
+                        {
+                            <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
+                        }
+                    }
+                    <!-- <li>@Html.ActionLink("About", "About", "Home")</li>
+                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>-->
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    
+        <!-- start: Header -->
+
+        <div class="container-fluid-full">
+            <div class="row-fluid">
+
+                <!-- start: Main Menu -->
+                <div id="sidebar-left" class="span2">
+                    <div class="nav-collapse sidebar-nav">
+                        <ul class="nav nav-tabs nav-stacked main-menu">
+                            <li><a href="index.html"><i class="fa fa-dashboard"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+                            <li><a href="messages.html"><i class="fa fa-ticket"></i><span class="hidden-tablet"> Tickets</span></a></li>
+                            <li><a href="tasks.html"><i class="fa fa-folder-open"></i><span class="hidden-tablet"> Projects</span></a></li>
+                            <li>
+                                <a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Dropdown</span><span class="label label-important"> 3 </span></a>
+                                <ul>
+                                    <li><a class="submenu" href="submenu.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Sub Menu 1</span></a></li>
+                                    <li><a class="submenu" href="submenu2.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Sub Menu 2</span></a></li>
+                                    <li><a class="submenu" href="submenu3.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Sub Menu 3</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+                <!-- end: Main Menu -->
+   
+
+
+                <div class="container body-content">
+                    @RenderBody()
+                    <hr />
+                </div>
+    <footer>
+        <p>&copy; @DateTime.Now.Year <i class="fa fa-bug"></i> Thompson Bugtracker</p>
+    </footer>
+
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")
+                <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+                <script src="~/Scripts/jquery-migrate-1.0.0.min.js"></script>
+                <script src="~/Scripts/jquery-ui-1.10.0.custom.min.js"></script>
+                <script src="~/Scripts/jquery.ui.touch-punch.js"></script>
+                <script src="~/Scripts/modernizr-2.8.3.js"></script>
+                <script src="~/Scripts/bootstrap.min.js"></script>
+                <script src="~/Scripts/jquery.cookie.js"></script>
+                <script src="~/Scripts/fullcalendar.min.js"></script>
+                <script src="~/Scripts/jquery.dataTables.min.js"></script>
+                <script src="~/Scripts/excanvas.js"></script>
+                <script src="~/Scripts/jquery.flot.js"></script>
+                <script src="~/Scripts/jquery.flot.pie.js"></script>
+                <script src="~/Scripts/jquery.flot.stack.js"></script>
+                <script src="~/Scripts/jquery.flot.resize.min.js"></script>
+                <script src="~/Scripts/jquery.chosen.min.js"></script>
+                <script src="~/Scripts/jquery.uniform.min.js"></script>
+                <script src="~/Scripts/jquery.cleditor.min.js"></script>
+                <script src="~/Scripts/jquery.noty.js"></script>
+                <script src="~/Scripts/jquery.elfinder.min.js"></script>
+                <script src="~/Scripts/jquery.raty.min.js"></script>
+                <script src="~/Scripts/jquery.iphone.toggle.js"></script>
+                <script src="~/Scripts/jquery.uploadify-3.1.min.js"></script>
+                <script src="~/Scripts/jquery.gritter.min.js"></script>
+                <script src="~/Scripts/jquery.imagesloaded.js"></script>
+                <script src="~/Scripts/jquery.masonry.min.js"></script>
+                <script src="~/Scripts/jquery.knob.modified.js"></script>
+                <script src="~/Scripts/jquery.sparkline.min.js"></script>
+                <script src="~/Scripts/counter.js"></script>
+                <script src="~/Scripts/retina.js"></script>
+                <script src="~/Scripts/custom.js"></script>
+                <script src="~/Scripts/DataTables-1.10.9/media/js/jquery.dataTables.min.js"></script>
+                <script src="~/Scripts/DataTables-1.10.9/media/js/dataTables.bootstrap.min.js"></script>
+                <script src="~/Scripts/DataTables-1.10.9/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+                <script src="~/Scripts/jquery.carousel-3d.min.js"></script>
+                @RenderSection("scripts", required: false)
+    </body>
+</html>

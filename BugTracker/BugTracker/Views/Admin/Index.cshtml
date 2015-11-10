@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@model IEnumerator<BugTracker.Models.AdminUserViewModel>
+@{
+    ViewBag.Title = "Admin Index";
+}
+
+<div class="row text-center">
+    <h1>Welcome to the Thompson Bugtracker!</h1>
+</div>
+<br />
+<div class="row-fluid">
+    <div>
+        <!-- <a class="quick-button metro yellow span2">
+             <i class="icon-group"></i>
+             <p>Users</p>
+             <span class="badge">237</span>
+         </a>
+         <a class="quick-button metro red span2">
+             <i class="icon-comments-alt"></i>
+             <p>Comments</p>
+             <span class="badge">46</span>
+         </a>-->
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="quick-button metro blue span2" href="@Url.Action("ListUsers")">
+                <i class="fa fa-group"></i>
+                <p>Users</p>
+                <span class="badge"></span>
+            </a>
+        }
+
+        <a class="quick-button metro red span2" href="@Url.Action("Index", "Tickets")">
+            <i class="fa fa-ticket"></i>
+            <p>Tickets</p>
+            <span class="badge"></span>
+        </a>
+        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Developer"))
+        {
+        <a class="quick-button metro pink span2" href="@Url.Action("Index", "Projects")">
+            <i class="fa fa-folder-open"></i>
+            <p>Projects</p>
+            <span class="badge"></span>
+        </a>
+        }
+        
+        <!--
+        <a class="quick-button metro black span2">
+            <i class="icon-calendar"></i>
+            <p>Calendar</p>
+        </a>-->
+    </div>
+    <div class="clearfix"></div>
+
+</div><!--/row--> 

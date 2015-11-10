@@ -1,0 +1,266 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@model BugTracker.Models.Ticket
+
+@{
+    ViewBag.Title = "Ticket Details";
+}
+
+<div>
+    <div class="row text-center">
+        <h1>@Html.DisplayFor(model => model.Title)</h1>
+        <h3>@Model.Created.ToString("MMMM dd, yyyy, h:mm tt")</h3>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            <h2><strong>@Html.DisplayNameFor(model => model.Description):</strong></h2>
+        </div>
+        <div class="col-md-7 col-md-offset-1">
+            <h2>@Html.Raw(Model.Description)</h2>
+        </div>
+    </div>
+    <hr />
+    @if (Model.FileUrl == null)
+    {
+        <div class="row">
+            @if (Model.AssignedToUserId != null)
+            {
+                <div class="col-md-3 col-md-offset-1">
+                    <h2><strong>@Html.DisplayNameFor(model => model.OwnerUserId): </strong>@Html.DisplayFor(model => model.Owner.DisplayName)</h2>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <h2><strong>@Html.DisplayNameFor(model => model.AssignedToUserId): </strong> @Html.DisplayFor(model => model.AssignedToUser.DisplayName)</h2>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <h2><strong>@Html.DisplayNameFor(model => model.Project): </strong>@Html.DisplayFor(model => model.Project.Name)</h2>
+                </div>
+            }
+            @if (Model.AssignedToUserId == null)
+            {
+                <div class="col-md-7 col-md-offset-1">
+                    <h2><strong>@Html.DisplayNameFor(model => model.OwnerUserId): </strong>@Html.DisplayFor(model => model.Owner.DisplayName)</h2>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <h2><strong>@Html.DisplayNameFor(model => model.Project): </strong>@Html.DisplayFor(model => model.Project.Name)</h2>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+                <h2><strong>@Html.DisplayNameFor(model => model.TicketPriorityId): </strong><span id="priority">@Html.DisplayFor(model => model.Priority.Name)</span></h2>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <h2><strong>@Html.DisplayNameFor(model => model.Type): </strong> @Html.DisplayFor(model => model.Type.Name)</h2>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <h2><strong>@Html.DisplayNameFor(model => model.Status): </strong><span id="StatusName">@Html.DisplayFor(model => model.Status.Name)</span></h2>
+            </div>
+        </div>
+    }
+    @if (Model.FileUrl != null)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2><strong>@Html.DisplayNameFor(model => model.Project): </strong>@Html.DisplayFor(model => model.Project.Name)</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <h2><strong>@Html.DisplayNameFor(model => model.OwnerUserId): </strong>@Html.DisplayFor(model => model.Owner.DisplayName)</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    @if (Model.AssignedToUserId != null)
+                    {
+                        <div class="col-md-6">
+                            <h2><strong>@Html.DisplayNameFor(model => model.AssignedToUserId): </strong> @Html.DisplayFor(model => model.AssignedToUser.DisplayName)</h2>
+                        </div>
+                    }
+                    <div class="col-md-6">
+                        <h2><strong>@Html.DisplayNameFor(model => model.TicketPriorityId): </strong><span id="priority">@Html.DisplayFor(model => model.Priority.Name)</span></h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2><strong>@Html.DisplayNameFor(model => model.Type): </strong> @Html.DisplayFor(model => model.Type.Name)</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <h2><strong>@Html.DisplayNameFor(model => model.Status): </strong><span id="StatusName">@Html.DisplayFor(model => model.Status.Name)</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col-md-offset-1">
+                <img src="@Model.FileUrl" class="home-image" alt=""/>
+            </div>
+        </div>
+    }
+    <hr />
+    @if (Model.Updated != null)
+    {
+        <div class="row text-center">
+            <h3><strong>@Html.DisplayNameFor(model => model.Updated): </strong>@Html.DisplayFor(model => model.Updated)</h3>
+        </div>
+    }
+    <hr />
+    
+    <div class="row">
+        <div class="box span12">
+            <div class="box-header">
+                <h2><i class="fa fa-ticket"></i><span class="break"></span>Tabs</h2>
+            </div>
+            <div class="box-content">
+                <ul class="nav tab-menu nav-tabs" id="myTab">
+                    <li class="red"><a href="#history">Ticket History</a></li>
+                    <li class="active blue"><a href="#comments">Comments</a></li>
+                   <!-- @if (Model.FileUrl != null)
+                    {
+                        <li class="pink"><a href="#attachment">Attachment</a></li>
+                    }-->
+                    
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active" id="history">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>@Html.DisplayNameFor(model => model.Histories)</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var hist in Model.Histories)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(h => hist.DateChanged)</td>
+                                                @if (hist.Property == "AssignedTo")
+                                                {
+                                                    <td>@hist.User.DisplayName assigned the ticket to @hist.NewDisplayValue</td>
+                                                }
+                                                @if (hist.Property != "AssignedTo")
+                                                {
+                                                    <td>@hist.User.DisplayName changed the @hist.Property from @hist.OldDisplayValue to @hist.NewDisplayValue</td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                    </div>
+                    <div class="tab-pane" id="comments">
+                        <br />
+                        <!-- Posted Comments -->
+                        @foreach (var comment in Model.Comments)
+                        {
+                            if (Model.Id == comment.TicketId)
+                            {
+        <!-- Comment -->
+                                <div class="media">
+                                    <!-- <a class="pull-left" href="#">
+                     <img class="media-object" src="http://placehold.it/64x64" alt="">
+                 </a> -->
+                                    <div class="media-body">
+                                        <h4 class="media-heading">
+                                            @Html.DisplayFor(modelComment => comment.User.DisplayName)
+                                            <small>@comment.Created.ToString("MMMM dd, yyyy, h:mm tt")</small>
+                                        </h4>
+                                        @Html.Raw(comment.TicketComment)
+                                        @if (comment.FileUrl != null)
+                                        {
+                                            <br />
+                                            <span class="fa fa-paperclip"></span> <a href="@comment.FileUrl" target="_blank">Attachment</a>
+                                            <br>
+                                        }
+                                        <hr />
+                                    </div>
+                                </div>
+        <!-- Comment -->
+                            }
+                        }
+                    </div>
+                   <!--<div class="tab-pane" id="attachment">
+                      @if (Model.FileUrl != null)
+                      {
+                        <img class="img-responsive" src="@Model.FileUrl" alt="">
+                        <br>
+                      }
+                    </div> --> 
+                </div>
+            </div>
+        </div><!--/span-->
+</div><!--/row-->
+</div>
+
+@if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Submitter"))
+{
+    <div class="well">
+        <h4>Leave a Comment:</h4>
+        <form role="form" method="post" action="@Url.Action("SubmitComment")" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            @Html.Hidden("TicketId", Model.Id)
+            @Html.Hidden("UserId", User.Identity.GetUserId())
+            <div class="form-group">
+                <textarea class="form-control" rows="3" name="TicketComment"></textarea>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FileUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                <input name="CommentImage" type="file" class="form-control" id="commentfileUpload" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <hr>
+}
+@if (User.IsInRole("Developer") && !User.IsInRole("Admin") && !User.IsInRole("Project Manager"))
+{
+    if (Model.AssignedToUserId == User.Identity.GetUserId() || Model.OwnerUserId == User.Identity.GetUserId())
+    {
+        <div class="well">
+            <h4>Leave a Comment:</h4>
+            <form role="form" method="post" action="@Url.Action("SubmitComment")" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                @Html.Hidden("TicketId", Model.Id)
+                @Html.Hidden("UserId", User.Identity.GetUserId())
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" name="TicketComment"></textarea>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FileUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <input name="CommentImage" type="file" class="form-control" id="commentfileUpload" />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <hr>
+    }
+}
+@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to Ticket List", "Index")
+    </p>
+}
+@if (User.IsInRole("Developer") && !User.IsInRole("Admin") && !User.IsInRole("Project Manager"))
+{
+    if (Model.AssignedToUserId == User.Identity.GetUserId())
+    {
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to Ticket List", "Index")
+        </p>
+    }
+    if (Model.AssignedToUserId != User.Identity.GetUserId())
+    {
+        @Html.ActionLink("Back to Ticket List", "Index")
+    }
+}
+@if(User.IsInRole("Submitter"))
+{
+    @Html.ActionLink("Back to Ticket List", "Index")
+}
+
+
+@section scripts {
+    <script src="~/Scripts/Edits.js"></script>
+}

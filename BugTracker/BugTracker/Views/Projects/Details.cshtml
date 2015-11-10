@@ -1,0 +1,160 @@
+﻿@model BugTracker.Models.Project
+
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "Project Details";
+}
+
+<div class="span12">
+    <div class="row text-center">
+        <h1>@Html.DisplayFor(model => model.Name)</h1>
+    </div>
+    <br />
+    <div class="row-fluid">
+        <div class="box span8">
+            <div class="box-header" data-original-title>
+                <h2><i class="fa fa-ticket"></i><span class="break"></span>Tickets</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn-minimize"><i class="fa fa-angle-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="ticketTable">
+                    <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Title</th>
+                            <th>Priority</th>
+                            <th>Assigned To</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Tickets)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Created.ToString("M/d/y")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Priority.Name)
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedToUser.DisplayName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status.Name)
+                                </td>
+                                <td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                        <br />
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                                        <br />
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    }
+                                    @if (User.IsInRole("Project Manager") && !User.IsInRole("Admin"))
+                                    {
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                        <br />
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                                    }
+                                    @if (User.IsInRole("Developer") && !User.IsInRole("Admin") && !User.IsInRole("Project Manager"))
+                                    {
+                                        if (item.AssignedToUserId == User.Identity.GetUserId())
+                                        {
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                            <br />
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                                        }
+                                        if (item.AssignedToUserId != User.Identity.GetUserId())
+                                        {
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                        }
+                                    }
+                                    @if (User.IsInRole("Submitter"))
+                                    {
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div><!--/span-->
+<div class="box span4" ontablet="span6" ondesktop="span4">
+    <div class="box-header">
+        <h2><i class="fa fa-group"></i><span class="break"></span>Project Users</h2>
+        <div class="box-icon">
+            <a href="#" class="btn-minimize"><i class="fa fa-angle-up"></i></a>
+        </div>
+    </div>
+    <div class="box-content">
+        <ul class="dashboard-list metro">
+            @foreach (var user in Model.ProjectUsers)
+            {
+                <li>
+                    <span class="fa fa-user"></span> @Html.DisplayFor(u => user.DisplayName)
+                </li>
+            }
+            <!-- <li class="green">
+                 <a href="#">
+                     <img class="avatar" alt="Lucas" src="img/avatar.jpg">
+                 </a>
+                 <strong>Name:</strong> Łukasz Holeczek<br>
+                 <strong>Since:</strong> Jul 25, 2012 11:09<br>
+                 <strong>Status:</strong> Approved
+             </li>
+             <li class="yellow">
+                     <span class="glyphicon glyphicon-user left"></span>
+                 <strong>Bill Cole</strong>
+             </li>
+             <li class="red">
+                 <a href="#">
+                     <img class="avatar" alt="Jane" src="img/avatar5.jpg">
+                 </a>
+                 <strong>Name:</strong> Jane Sanchez<br>
+                 <strong>Since:</strong> Jul 25, 2012 11:09<br>
+                 <strong>Status:</strong> Banned
+             </li>
+             <li class="blue">
+                 <a href="#">
+                     <img class="avatar" alt="Kate" src="img/avatar6.jpg">
+                 </a>
+                 <strong>Name:</strong> Kate Presley<br>
+                 <strong>Since:</strong> Jul 25, 2012 11:09<br>
+                 <strong>Status:</strong> Updated
+             </li>-->
+        </ul>
+    </div>
+</div><!--/span-->
+        </div>
+@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+{
+    <p>
+        @Html.ActionLink("Edit Project Name", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Edit Project Users", "EditProjectUsers", new { projectId = Model.Id }) |
+        @Html.ActionLink("Back to Projects List", "Index")
+    </p>
+}
+@if (User.IsInRole("Developer") && !User.IsInRole("Admin") && !User.IsInRole("Project Manager"))
+{
+    @Html.ActionLink("Back to Projects List", "Index")
+}
+
+    </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#ticketTable').DataTable();
+        });
+    </script>
+}
