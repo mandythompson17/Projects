@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html ng-app="playApp">
+<head>
+    <!-- start: Meta -->
+    <meta charset="utf-8" />
+    <title>Play</title>
+    <meta name="description" content="App Play.">
+    <meta name="author" content="Mandy Thompson">
+    <meta name="keyword" content="Play App">
+
+    <!-- CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body ng-app="playApp">
+    <div ng-controller="indexController as Ictrl" ng-cloak>
+        <h1>Play</h1>
+        <div class="jumbotron">
+            <h2 class="text-center">{{Ictrl.currentLyric}}</h2>
+            <button ng-click="Ictrl.lyrics()">Angel</button>
+        </div>
+
+        <h2>Car List</h2>
+        <hr />
+        <p>selected car is a {{selectedItem.year}} {{selectedItem.make}} {{selectedItem.model}} {{selectedItem.trim}}</p>
+        <label>Car:
+            <select ng-options="car.model for car in {{Ictrl.cars}}" ng-model="selectedItem"></select>
+        </label>
+        
+
+    </div>
+    <div ng-controller="CarsController as ctrl" ng-cloak>
+        <h2>Car Lists</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    Year:
+                    <select ng-options="year for year in ctrl.options.years"
+                            ng-model="ctrl.selected.year"
+                            ng-change="ctrl.getMakes()"></select>
+                </label>
+            </div>
+            <div class="col-md-3">
+                <label>
+                    Make:
+                    <select ng-options="make for make in ctrl.options.makes"
+                            ng-model="ctrl.selected.make"
+                            ng-change="ctrl.getModels()"></select>
+                </label>
+            </div>
+            <div class="col-md-3">
+                <label>
+                    Model:
+                    <select ng-options="model for model in ctrl.options.models"
+                            ng-model="ctrl.selected.model"
+                            ng-change="ctrl.getTrims()"></select>
+                </label>
+            </div>
+            <div class="col-md-3">
+                <label>
+                    Trim:
+                    <select ng-options="trim for trim in ctrl.options.trims"
+                            ng-model="ctrl.selected.trim"></select>
+                </label>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/App/PlayApp.js"></script>
+    <script src="~/App/indexController.js"></script>
+    <script src="~/App/testCarSvc.js"></script>
+    <script src="~/App/CarsController.js"></script>
+    
+</body>
+</html>

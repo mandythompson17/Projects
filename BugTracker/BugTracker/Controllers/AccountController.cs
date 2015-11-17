@@ -91,6 +91,18 @@ namespace BugTracker.Controllers
             }
         }
 
+        // POST: Guest Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> GuestLogin(string id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var guest = db.Users.Find(id);
+            await SignInManager.SignInAsync(guest, false, false);
+            return RedirectToAction("Index", "Home");
+        }
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

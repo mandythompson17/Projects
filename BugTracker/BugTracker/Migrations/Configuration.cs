@@ -64,6 +64,21 @@ namespace BugTracker.Migrations
             var userId = userManager.FindByEmail(AdminUser).Id;
             userManager.AddToRole(userId, "Admin");
 
+            if (!context.Users.Any(u => u.Email == "guestadmin@coderfoundry.com"))
+            {
+                userManager.Create(new ApplicationUser
+                    {
+                        UserName = "guestadmin@coderfoundry.com",
+                        Email = "guestadmin@coderfoundry.com",
+                        PhoneNumber = "4044044044",
+                        FirstName = "Guest",
+                        LastName = "Admin",
+                        DisplayName = "GuestAdmin"
+                    }, "Gue$tAdmin1");
+            }
+            var userId2 = userManager.FindByEmail("guestadmin@coderfoundry.com").Id;
+            userManager.AddToRole(userId2, "Admin");
+
             // ---------------------- Statuses ----------------------- //
 
             if (!context.TicketStatuses.Any(s => s.Name == "Unassigned"))
