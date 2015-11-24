@@ -1,35 +1,20 @@
 ﻿<!DOCTYPE html>
-<html ng-app="playApp">
+<html ng-app="car-finder">
 <head>
     <!-- start: Meta -->
     <meta charset="utf-8" />
     <title>Play</title>
-    <meta name="description" content="App Play.">
+    <meta name="description" content="Car Lister">
     <meta name="author" content="Mandy Thompson">
-    <meta name="keyword" content="Play App">
+    <meta name="keyword" content="Car Lister">
 
     <!-- CSS -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/trNgGrid.min.css" rel="stylesheet" />
 </head>
-<body ng-app="playApp">
-    <div ng-controller="indexController as Ictrl" ng-cloak>
-        <h1>Play</h1>
-        <div class="jumbotron">
-            <h2 class="text-center">{{Ictrl.currentLyric}}</h2>
-            <button ng-click="Ictrl.lyrics()">Angel</button>
-        </div>
-
-        <h2>Car List</h2>
-        <hr />
-        <p>selected car is a {{selectedItem.year}} {{selectedItem.make}} {{selectedItem.model}} {{selectedItem.trim}}</p>
-        <label>Car:
-            <select ng-options="car.model for car in {{Ictrl.cars}}" ng-model="selectedItem"></select>
-        </label>
-        
-
-    </div>
+<body ng-app="car-finder">
     <div ng-controller="CarsController as ctrl" ng-cloak>
-        <h2>Car Lists</h2>
+        <h2>Cars List</h2>
         <hr />
         <div class="row">
             <div class="col-md-3">
@@ -60,21 +45,73 @@
                 <label>
                     Trim:
                     <select ng-options="trim for trim in ctrl.options.trims"
-                            ng-model="ctrl.selected.trim"></select>
+                            ng-model="ctrl.selected.trim"
+                            ng-change="ctrl.getCars()"></select>
                 </label>
             </div>
+        </div>
+        <hr />
+        <div class="row">
+            <table tr-ng-grid="" 
+                   items="ctrl.cars" 
+                   fields="['model_year', 'make', 'model_name', 'model_trim']"
+                   total-items="ctrl.unpagedCarsCount"
+                   on-data-required="ctrl.getCars()"
+                   page-items="ctrl.selected.perPage"
+                   currentPage="ctrl.selected.page"
+                   filter-by="ctrl.selected.filter"
+                   order-by="ctrl.selected.sortColumn"
+                   order-by-reverse="ctrl.selected.sortByReverse">
+                <tr>
+                    <th field-name="model_year" display-name="Year" enable-filtering="true"
+                        order-by-reverse="ctrl.selected.sortByReverse" filter-by="ctrl.selected.filter"></th>
+                    <th field-name="make" display-name="Make" enable-filtering="true"
+                        order-by-reverse="ctrl.selected.sortByReverse" filter-by="ctrl.selected.filter"></th>
+                    <th field-name="model_name" display-name="Model" enable-filtering="true"
+                        order-by-reverse="ctrl.selected.sortByReverse" filter-by="ctrl.selected.filter"></th>
+                    <th field-name="model_trim" display-name="Trim" enable-filtering="true"
+                        order-by-reverse="ctrl.selected.sortByReverse" filter-by="ctrl.selected.filter"></th>
+                    <th display-name="Action" enable-sorting="false" enable-filtering="false" display-align="center"></th>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn btn-xs btn-success" ng-click="ctrl.open(gridItem.id)">Details</button>
+                    </td>
+                </tr>
+            </table>
+            <script type="text/ng-template" id="carModal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        {{cm.car.Car.model_year}} {{cm.car.Car.make}} - {{cm.car.Car.model_name}} {{cm.car.Car.model_trim}}
+                        <button class="pull-right btn btn-default" ng-click="cm.cancel()">X</button>
+                    </h3>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="cm.ok()">OK</button>
+                    <button class="btn btn-warning" ng-click="cm.cancel()">Cancel</button>
+                </div>
+            </script>
         </div>
 
 
 
     </div>
 
+    
+
+    @section scripts {
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/angular.min.js"></script>
-    <script src="~/App/PlayApp.js"></script>
-    <script src="~/App/indexController.js"></script>
-    <script src="~/App/testCarSvc.js"></script>
+    <script src="~/Scripts/trNgGrid.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/App/car-finderApp.js"></script>
+    <script src="~/App/carService.js"></script>
     <script src="~/App/CarsController.js"></script>
+    }
     
 </body>
 </html>

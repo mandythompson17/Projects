@@ -1,3 +1,3 @@
 ﻿(function () {
-    var car-finder = angular.module('car-finder', []);
+    var carFinder = angular.module('car-finder', ["trNgGrid", "ui.bootstrap"]);
 })();

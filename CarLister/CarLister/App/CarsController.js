@@ -1,12 +1,19 @@
 ﻿(function () {
-    angular.module('playApp').controller('CarsController', ['testCarSvc', function (testCarSvc) {
+    angular.module('car-finder').controller('CarsController', ['carSvc', '$q', '$uibModal', function (carSvc, $q, $uibModal) {
         var vm = this;
 
         this.selected = {
             year: '',
             make: '',
             model: '',
-            trim: ''
+            trim: '',
+            filter: '',
+            paging: true,
+            page: 0,
+            perPage: 10,
+            sortColumn: 'id',
+            sortDirection: '',
+            sortByReverse: true
         }
 
         this.options = {
@@ -16,13 +23,23 @@
             trims: ''
         }
 
+
+        this.id = {
+            id: ''
+        };
+
+        this.car = {};
+
         this.cars = [];
 
+        this.unpagedCarsCount = 0;
+
+        this.loading = false;
+
         this.getYears = function () {
-           testCarSvc.getYears().then(function (data) {
+            carSvc.getYears().then(function (data) {
                 vm.options.years = data;
             });
-            vm.getCars();
         }
 
         this.getMakes = function () {
@@ -32,9 +49,14 @@
             vm.options.models = '';
             vm.selected.trim = '';
             vm.options.trims = '';
+            vm.selected.paging = true;
+            vm.selected.page = 0;
+            vm.selected.perPage = 10;
             vm.cars = [];
+            vm.selected.sortColumn = 'make';
+            vm.selected.sortByReverse = false;
 
-            testCarSvc.getMakes(vm.selected.year).then(function (data) {
+            carSvc.getMakes(vm.selected).then(function (data) {
                 vm.options.makes = data;
             });
             vm.getCars();
@@ -45,8 +67,13 @@
             vm.options.models = '';
             vm.selected.trim = '';
             vm.options.trims = '';
+            vm.selected.paging = true;
+            vm.selected.page = 0;
+            vm.selected.perPage = 10;
             vm.cars = [];
-            testCarSvc.getModels(vm.selected.year, vm.selected.make).then(function (data) {
+            vm.selected.sortColumn = 'model_name';
+            vm.selected.sortByReverse = false;
+            carSvc.getModels(vm.selected).then(function (data) {
                 vm.options.models = data;
             });
             vm.getCars();
@@ -55,22 +82,78 @@
         this.getTrims = function () {
             vm.selected.trim = '';
             vm.options.trims = '';
+            vm.selected.paging = true;
+            vm.selected.page = 0;
+            vm.selected.perPage = 10;
             vm.cars = [];
+            vm.selected.sortColumn = 'model_trim';
+            vm.selected.sortByReverse = false;
 
-            testCarSvc.getTrims(vm.selected.year, vm.selected.make, vm.selected.model).then(function (data) {
+            carSvc.getTrims(vm.selected).then(function (data) {
                 vm.options.trims = data;
             });
             vm.getCars();
         }
 
         this.getCars = function () {
-            vm.cars = [];
-            testCarSvc.getCars(vm.selected.year, vm.selected.make, vm.selected.model, vm.selected.trim).then(function (data) {
-                vm.cars = data;
+            if (!vm.loading) {
+                vm.loading = true;
+                var s = angular.copy(vm.selected);
+                s.page ++;
+
+                $q.all([carSvc.getCars(s), carSvc.getCarCount(s)]).then(function (data) {
+                    console.log(data[1]);
+                    vm.cars = data[0];
+                    vm.unpagedCarsCount = data[1];
+                    vm.loading = false;
+                });
+            }
+        }
+
+        this.getCarCount = function () {
+            carSvc.getCarCount(vm.selected).then(function (data) {
+                vm.unpagedCarsCount = data;
+            });
+        }
+
+        this.getCarDetails = function () {
+            carSvc.getCarDetails(vm.id).then(function (data) {
+                vm.car = data;
+            })
+        }
+
+        this.open = function (id) {
+            console.log("Id in open " + id);
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'carModal.html',
+                controller: 'carModalCtrl as cm',
+                size: 'lg',
+                resolve: {
+                    car: function () {
+                        return carSvc.getCarDetails(id);
+                    }
+                }
             });
         }
 
         this.getYears();
 
     }]);
+
+    angular.module('car-finder').controller('carModalCtrl', function ($uibModalInstance, car) {
+        var vm = this;
+
+        vm.car = car;
+
+        vm.ok = function () {
+            $uibModalInstance.close();
+        }
+
+        vm.cancel = function () {
+            $uibModalInstance.dismiss();
+        }
+
+    });
+
 })();

@@ -184,6 +184,11 @@
             Use this attribute to change the name of the <see cref="T:CarLister.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
             </summary>
         </member>
+        <member name="T:CarLister.Areas.HelpPage.ModelDescriptions.SimpleTypeModelDescription">
+            <summary>
+            Model for descriptions of functions on help page.
+            </summary>
+        </member>
         <member name="T:CarLister.Areas.HelpPage.Models.HelpPageApiModel">
             <summary>
             The model that represents an API displayed on the help page.
@@ -481,12 +486,156 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:CarLister.Controllers.CarController.GetCar(System.Int32)">
+        <member name="T:CarLister.Controllers.CarController">
+            <summary>
+            The cs controller for the car-finder application
+            </summary>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetCar(CarLister.Controllers.CarController.IdParam)">
             <summary>
             Gets an individual car listing by id
             </summary>
             <param name="id">the id of the individual car</param>
             <returns>A car listing</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetYears">
+            <summary>
+            Gets all years in the database
+            </summary>
+            <returns>A list of years</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetMakesFromYear(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Gets a list of car makes from the database based on year input
+            </summary>
+            <param name="selected">an object with selected properties from drop down, including the user-selected year</param>
+            <returns>A list of makes</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetModelsFromYearMake(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Gets a list of car models from the database based on year and make input
+            </summary>
+            <param name="selected">an object with selected properties from drop down, including the user-selected year and make</param>
+            <returns>A list of models</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetTrimsByYearMakeModel(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Gets a list of car trim levels from the database based on year, make, and model input
+            </summary>
+            <param name="selected">an object with selected properties from drop downs, including the user-selected year, make, and model</param>
+            <returns>A list of car trim levels</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetCarsFromYear(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Gets a list of cars from database based on year input
+            </summary>
+            <param name="selected">an object with selected properties from drop downs, including the user-selected year</param>
+            <returns>A list of cars</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetCarsFromYearMake(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Gets a list of cars from database based on year and make input
+            </summary>
+            <param name="selected">an object with selected properties from drop downs, including the user-selected year and make</param>
+            <returns>A list of cars</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetCarsFromYearMakeModel(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Gets a list of cars from database based on year, make, and model input
+            </summary>
+            <param name="selected">an object with selected properties from drop downs, including the user-selected year, make, and model</param>
+            <returns>A list of cars</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetCarsFromYearMakeModelTrim(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Gets a list of cars from database based on year, make, model, and trim input
+            </summary>
+            <param name="selected">an object with selected properties from drop downs, including the user-selected year, make, model, and trim</param>
+            <returns>A list of cars</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetCarCount(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Returns a count of the cars returned by the query
+            </summary>
+            <param name="selected">an object with selected properties from drop downs and javascript instantiation</param>
+            <returns>An int/the number of cars returned by query</returns>
+        </member>
+        <member name="M:CarLister.Controllers.CarController.GetCars(CarLister.Controllers.CarController.ControllerParams)">
+            <summary>
+            Gets a list of cars from database based user inputs
+            </summary>
+            <param name="selected">an object with selected properties from drop downs and javascript instantiation</param>
+            <returns>A list of cars</returns>
+        </member>
+        <member name="T:CarLister.Controllers.CarController.ControllerParams">
+            <summary>
+            A class for all of the car properties/parameters
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.year">
+            <summary>
+            year = model_year of car
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.make">
+            <summary>
+            make = make of car
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.model">
+            <summary>
+            model = model of car
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.trim">
+            <summary>
+            trim = trim level of car
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.filter">
+            <summary>
+            filter = search text input
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.paging">
+            <summary>
+            paging = whether to use paging
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.page">
+            <summary>
+            page = the page of the car list
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.perPage">
+            <summary>
+            perPage = how many cars to display on each page of list
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.sortColumn">
+            <summary>
+            sortColumn = the column by which to sort returned cars
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.sortDirection">
+            <summary>
+            sortDirection = the direction to sort by; either ASC or DESC
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.ControllerParams.sortByReverse">
+            <summary>
+            sortByReverse = variable to translate sortDirection for trNgGrid
+            </summary>
+        </member>
+        <member name="T:CarLister.Controllers.CarController.IdParam">
+            <summary>
+            class for the id property of the car
+            </summary>
+        </member>
+        <member name="P:CarLister.Controllers.CarController.IdParam.id">
+            <summary>
+            id property of the IdParam class
+            </summary>
         </member>
         <member name="M:CarLister.Models.BingSearchContainer.Composite(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Double},System.Nullable{System.Double},System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>

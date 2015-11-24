@@ -16,11 +16,13 @@ using Microsoft.Owin.Security.OAuth;
 using CarLister.Models;
 using CarLister.Providers;
 using CarLister.Results;
+using System.Web.Http.Description;
 
 namespace CarLister.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
+    [ApiExplorerSettings(IgnoreApi=true)]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";

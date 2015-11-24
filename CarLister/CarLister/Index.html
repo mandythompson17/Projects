@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html ng-app="car-finder">
+<head>
+    <!-- start: Meta -->
+    <meta charset="utf-8" />
+    <title>Thompson Car Finder</title>
+    <link href="/Assets/car-icon.png" rel="icon" type="image/x-icon" />
+    <meta name="description" content="Car Finder">
+    <meta name="author" content="Mandy Thompson">
+    <meta name="keyword" content="Car Finder">
+
+    <!-- CSS -->
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/main.css" rel="stylesheet" />
+    <link href="/Content/animate.css" rel="stylesheet" />
+    <link href="/Content/trNgGrid.min.css" rel="stylesheet" />
+    <link href="Content/Edits.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body ng-app="car-finder">
+    <div ng-controller="CarsController as ctrl" ng-cloak>
+        <div id="page">
+            <!-- Start Navigation -->
+            <div class="site-navbar navbar navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html"><span class="name">Thompson</span> Car Finder</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="active"><a href="#main">Home</a></li>
+                            <li><a href="#services">About</a></li>
+                            <li><a href="#car-lister">Car Finder</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="https://github.com/mandythompson17" target="_blank"><span class="fa fa-github"></span> GitHub</a></li>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+            </div>
+            <!-- End Navigation -->
+            <main id="main" class="site-main">
+                <!-- Carousel -->
+               <!-- <div id="carousel-example-captions" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators wow fadeInUp">
+                        <li data-target="#carousel-example-captions" data-slide-to="0" class=""></li>
+                        <li data-target="#carousel-example-captions" data-slide-to="1" class=""></li>
+                        <li data-target="#carousel-example-captions" data-slide-to="2" class="active"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item">
+                            <img class="wow pulse" data-wow-duration="3s" alt="1" src="images/bg-1.jpg" alt="bg-1">
+                            <div class="carousel-caption">
+                                <h3 class="wow bounceInLeft" data-wow-duration="2s">Modern, Creative, Responsive!</h3>
+                                <span class="wow bounceInRight" data-wow-duration="2s">Nulla vitae elit libero, a pharetra augue mollis interdum.</span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img class="wow pulse" data-wow-duration="3s" alt="2" src="images/bg-2.jpg" alt="bg-2">
+                            <div class="carousel-caption">
+                                <h3 class="wow bounceInLeft" data-wow-duration="2s">One Page Responsive Template</h3>
+                                <span class="wow bounceInRight" data-wow-duration="2s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                            </div>
+                        </div>
+                        <div class="item active">
+                            <img class="wow pulse" data-wow-duration="3s" alt="3" src="images/bg-3.jpg" alt="bg-3">
+                            <div class="carousel-caption">
+                                <h3 class="wow bounceInLeft" data-wow-duration="2s">Simple, Beautiful Design </h3>
+                                <span class="wow bounceInRight" data-wow-duration="2s">Praesent commodo cursus magna, vel scelerisque nisl consectetur.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-captions" data-slide="prev">
+                        <span class="fa fa-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-captions" data-slide="next">
+                        <span class="fa fa-chevron-right"></span>
+                    </a>
+                </div>
+                <!-- About -->
+                <section id="about">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h3>Welcome to the Thompson 
+                                <br />Car Finder!</h3>
+                                <h4>Scroll down to get started.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="services">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>About This App</h3>
+                            </div>
+                            <div class="col-md-3 col-xs-12 wow bounceInLeft">
+                                <p><span><i class="fa fa-desktop"></i></span></p>
+                                <h4>Crossbrowser Compatible </h4>
+                            </div>
+                            <div class="col-md-3 col-xs-12 wow bounceInLeft">
+                                <p><span><i class="fa fa-mobile"></i></span></p>
+                                <h4>Fully Responsive</h4>
+                            </div>
+                            <div class="col-md-3 col-xs-12 wow bounceInRight">
+                                <p><span><img src="/Assets/AngularJS-Shield-small.png" class="about-img" /></span></p>
+                                <h4>Angular JS</h4>
+                            </div>
+                            <div class="col-md-3 col-xs-12 wow bounceInRight">
+                                <p><span><i class="fa fa-globe"></i></span></p>
+                                <h4>ASP.NET Web API</h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Car Lister -->
+                <section id="car-lister">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h2>Find Cars</h2>
+                                <hr />
+                                <h3>Select the year, make, model, and trim or type in the search box to filter and display cars.</h3>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 col-sx-12">
+                                <label>
+                                    Year:
+                                    <select ng-options="year for year in ctrl.options.years"
+                                            ng-model="ctrl.selected.year"
+                                            ng-change="ctrl.getMakes()"></select>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label>
+                                    Make:
+                                    <select ng-options="make for make in ctrl.options.makes"
+                                            ng-model="ctrl.selected.make"
+                                            ng-change="ctrl.getModels()"></select>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label>
+                                    Model:
+                                    <select ng-options="model for model in ctrl.options.models"
+                                            ng-model="ctrl.selected.model"
+                                            ng-change="ctrl.getTrims()"></select>
+                                </label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label>
+                                    Trim:
+                                    <select ng-options="trim for trim in ctrl.options.trims"
+                                            ng-model="ctrl.selected.trim"
+                                            ng-change="ctrl.getCars()"></select>
+                                </label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <table tr-ng-grid=""
+                                   items="ctrl.cars"
+                                   fields="['model_year', 'make', 'model_name', 'model_trim']"
+                                   total-items="ctrl.unpagedCarsCount"
+                                   on-data-required="ctrl.getCars()"
+                                   page-items="ctrl.selected.perPage"
+                                   current-page="ctrl.selected.page"
+                                   filter-by="ctrl.selected.filter"
+                                   order-by="ctrl.selected.sortColumn"
+                                   order-by-reverse="ctrl.selected.sortByReverse">
+                                <thead>
+                                    <tr>
+                                        <th field-name="model_year" display-name="Year" enable-filtering="false"
+                                            order-by-reverse="ctrl.selected.sortByReverse" filter-by="ctrl.selected.filter"></th>
+                                        <th field-name="make" display-name="Make" enable-filtering="false"
+                                            order-by-reverse="ctrl.selected.sortByReverse" filter-by="ctrl.selected.filter"></th>
+                                        <th field-name="model_name" display-name="Model" enable-filtering="false"
+                                            order-by-reverse="ctrl.selected.sortByReverse" filter-by="ctrl.selected.filter"></th>
+                                        <th field-name="model_trim" display-name="Trim" enable-filtering="false"
+                                            order-by-reverse="ctrl.selected.sortByReverse" filter-by="ctrl.selected.filter"></th>
+                                        <th display-name="Action" enable-sorting="false" enable-filtering="false" display-align="center"></th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-xs btn-success" ng-click="ctrl.open(gridItem.id)">Details</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <script type="text/ng-template" id="carModal.html">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">
+                                        {{cm.car.car.model_year}} {{cm.car.car.make}} - {{cm.car.car.model_name}} {{cm.car.car.model_trim}}
+                                        <button class="pull-right btn btn-default" ng-click="cm.cancel()">X</button>
+                                    </h3>
+                                </div>
+                                <div class="modal-body">
+                                    <img class="car-image" ng-src="{{cm.car.imageUrl}}" />
+                                    <hr />
+                                    <uib-tabset>
+                                        <uib-tab heading="Car Details">
+                                            <h4><strong>Year:</strong> {{cm.car.car.model_year}}</h4>
+                                            <h4><strong>Make:</strong> {{cm.car.car.make}}</h4>
+                                            <h4><strong>Model:</strong> {{cm.car.car.model_name}}</h4>
+                                            <h4 ng-hide="cm.car.car.model_trim == ''"><strong>Trim:</strong> {{cm.car.car.model_trim}}</h4>
+                                            <h4 ng-hide="cm.car.car.body_style == ''"><strong>Body Style:</strong> {{cm.car.car.body_style}}</h4>
+                                            <h4 ng-hide="cm.car.car.engine_type == ''"><strong>Engine:</strong> {{cm.car.car.engine_type}}</h4>
+                                            <h4 ng-hide="cm.car.car.engine_num_cyl == ''"><strong>Number of Cylinders:</strong> {{cm.car.car.engine_num_cyl}}</h4>
+                                            <h4 ng-hide="cm.car.car.transmission_type == ''"><strong>Transmission:</strong> {{cm.car.car.transmission_type}}</h4>
+                                            <h4 ng-hide ="cm.car.car.drive_type == ''"><strong>Drive:</strong> {{cm.car.car.drive_type}}</h4>
+                                            <h4 ng-hide="cm.car.car.seats == ''"><strong>Seats:</strong> {{cm.car.car.seats}}</h4>
+                                            <h4 ng-hide="cm.car.car.doors == ''"><strong>Doors:</strong> {{cm.car.car.doors}}</h4>
+                                        </uib-tab>
+                                        <uib-tab heading="Recalls">
+                                            <h4 ng-show="cm.car.recalls.Count != 0">Recall Count: {{cm.car.recalls.Count}}</h4>
+                                            <h4 ng-show="cm.car.recalls.Count == 0">There are no recalls for this car.</h4>
+                                            <uib-accordion close-others="oneAtaTime">
+                                                <uib-accordion-group ng-repeat="result in cm.car.recalls.Results" heading="{{result.Component}}">
+                                                    <h4>
+                                                        Manufacturer: {{result.Manufacturer}}<br />
+                                                        Date: {{result.ReportReceivedDate | date: 'M/d/yyyy'}}<br />
+                                                    </h4>
+                                                    <hr />
+                                                    <h4>Summary:</h4>
+                                                    <p>{{result.Summary}}</p>
+                                                    <hr />
+                                                    <h4>Consequence:</h4>
+                                                    <p>{{result.Conequence}}</p>
+                                                    <hr />
+                                                    <h4>Remedy:</h4>
+                                                    <p>{{result.Remedy}}</p>
+                                                    <hr />
+                                                    <h4>Notes:</h4>
+                                                    <p>{{result.Notes}}</p>
+                                                    <hr />
+                                                    <h4>
+                                                        NHTSA Campaign Number: {{result.NHTSACampaignNumber}}<br />
+                                                        <span ng-hide="result.NHTSAActionNumber == null">NHTSA Action Number: {{result.NHTSAActionNumber}}</span>
+                                                    </h4>
+
+
+                                                </uib-accordion-group>
+                                            </uib-accordion>
+
+                                        </uib-tab>
+                                    </uib-tabset>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="cm.ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cm.cancel()">Cancel</button>
+                                </div>
+                            </script>
+                        </div>
+                    </div>
+
+                </section>
+               <!-- <section id="portfolio">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Portfolio</h3>
+                            </div>
+                            <div class="col-md-4 col-sm-4 wow bounceInLeft">
+                                <div class="imgport" data-toggle="modal" data-target="#modal-login">
+                                    <span class="wow fadeInDown">view</span>
+                                    <img src="images/1.jpg" alt="1">
+                                </div>
+                                <h4>Portfolio 1</h4>
+                                <p>Published on Jan 17, 2014</p>
+                            </div>
+                            <div class="col-md-4 col-sm-4 wow bounceInUp">
+                                <div class="imgport" data-toggle="modal" data-target="#modal-login">
+                                    <span class="wow fadeInDown">view</span>
+                                    <img src="images/2.jpg" alt="2">
+                                </div>
+                                <h4>Portfolio 2</h4>
+                                <p>Published on Jan 18, 2014</p>
+                            </div>
+                            <div class="col-md-4 col-sm-4 wow bounceInRight">
+                                <div class="imgport" data-toggle="modal" data-target="#modal-login">
+                                    <span class="wow fadeInDown">view</span>
+                                    <img src="images/3.jpg" alt="3">
+                                </div>
+                                <h4>Portfolio 3</h4>
+                                <p>Published on Jan 19, 2014</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <!-- Contact -->
+                <section id="contact">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Contact</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fluid-wrapper">
+                        <!-- IFRAME MAPS -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3223.8840751167722!2d-80.07445238558032!3d36.096313814704445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88530739101f5817%3A0x64583b7d90957128!2sCoder+Foundry!5e0!3m2!1sen!2sus!4v1448050477347" width="600" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-12 wow bounceInLeft">
+                                <br>
+                                <p class="mail"> <i class="fa fa-map-marker"></i> &nbsp; 1231 Shields Rd #5, Kernersville, NC 27284 </p>
+                                <p class="mail"> <i class="fa fa-phone-square"></i>&nbsp; 3362318632-NUMBER </p>
+                            </div>
+                            <div class="col-md-8 col-xs-12 wow bounceInRight web-links">
+                                <div class="col-md-7 me">
+                                   <a href="https://mthompson.azurewebsites.net" target="_blank">Developed by:
+                                        <br />Mandy Thompson</a> 
+                                </div>
+                                <div class="col-md-5 foundry">
+                                    <a href="http://www.coderfoundry.com" target="_blank">Instructed by:
+                                        <br />Coder Foundry</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+                <footer>
+                    Copyright &copy; 2015 <br>
+                </footer>
+</div>
+        <!-- Scroll to top -->
+        <div class="scroll-to-top affix" data-spy="affix" data-offset-top="200"><a href="#page" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
+        <!-- modal -->
+        <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-portfolio">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="modal-body">
+                        <!--  -->
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item">
+                                    <img src="/Assets/placeholder.jpg" alt="Portfolio1">
+                                </div>
+                                <div class="item">
+                                    <img src="images/portfolio2.jpg" alt="Portfolio2">
+                                </div>
+                                <div class="item active">
+                                    <img src="images/portfolio3.jpg" alt="Portfolio3">
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="fa fa-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="fa fa-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+ 
+    <script src="/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="/Scripts/angular.min.js"></script>
+    <script src="/Scripts/trNgGrid.min.js"></script>
+    <script src="/Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="Scripts/main.js"></script>
+    <script src="Scripts/wow.min.js"></script>
+    <script src="/App/car-finderApp.js"></script>
+    <script src="/App/carService.js"></script>
+    <script src="/App/CarsController.js"></script>
+    <script>new WOW().init();</script>
+  
+
+</body>
+</html>

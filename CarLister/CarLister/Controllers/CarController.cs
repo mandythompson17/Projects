@@ -6,23 +6,90 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace CarLister.Controllers
-{   [RoutePrefix("api/Cars")]
+{   
+    /// <summary>
+    /// The cs controller for the car-finder application
+    /// </summary>
+    [RoutePrefix("api/Cars")]
+    
     public class CarController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-       
+       /// <summary>
+       /// A class for all of the car properties/parameters
+       /// </summary>
+        public class ControllerParams
+        {
+            /// <summary>
+            /// year = model_year of car
+            /// </summary>
+            public string year { get; set; }
+            /// <summary>
+            /// make = make of car
+            /// </summary>
+            public string make { get; set; }
+            /// <summary>
+            /// model = model of car
+            /// </summary>
+            public string model { get; set; }
+            /// <summary>
+            /// trim = trim level of car
+            /// </summary>
+            public string trim { get; set; }
+            /// <summary>
+            /// filter = search text input
+            /// </summary>
+            public string filter { get; set; }
+            /// <summary>
+            /// paging = whether to use paging
+            /// </summary>
+            public bool paging { get; set; }
+            /// <summary>
+            /// page = the page of the car list
+            /// </summary>
+            public int page { get; set; }
+            /// <summary>
+            /// perPage = how many cars to display on each page of list
+            /// </summary>
+            public int perPage { get; set; }
+            /// <summary>
+            /// sortColumn = the column by which to sort returned cars
+            /// </summary>
+            public string sortColumn { get; set; }
+            /// <summary>
+            /// sortDirection = the direction to sort by; either ASC or DESC
+            /// </summary>
+            public string sortDirection { get; set; }
+            /// <summary>
+            /// sortByReverse = variable to translate sortDirection for trNgGrid
+            /// </summary>
+            public bool sortByReverse { get; set; }
+        }
+        /// <summary>
+        /// class for the id property of the car
+        /// </summary>
+        public class IdParam
+        {
+            /// <summary>
+            /// id property of the IdParam class
+            /// </summary>
+            public int id { get; set; }
+        }
+
         // GET: GetCar
         /// <summary>
         /// Gets an individual car listing by id
         /// </summary>
         /// <param name="id">the id of the individual car</param>
         /// <returns>A car listing</returns>
-        [Route("GetCar")]
-        public async Task<IHttpActionResult> GetCar(int id)
+        [Route("GetCarDetails")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetCar(IdParam id)
         {
-            var car = db.Cars.Find(id);
+            var car = db.Cars.Find(id.id);
             if (car == null)
                 return await Task.FromResult(NotFound());
 
@@ -64,7 +131,7 @@ namespace CarLister.Controllers
                 {
                     response =
                         await httpClient.GetAsync("webapi/api/Recalls/vehicle/modelyear/" + car.model_year + "/make/" + car.make + "/model/" + car.model_name + "?format=json");
-                    recalls = await response.Content.ReadAsStringAsync();
+                    recalls = JsonConvert.DeserializeObject( await response.Content.ReadAsStringAsync());
                 }
                 catch(Exception e)
                 {
@@ -74,52 +141,120 @@ namespace CarLister.Controllers
 
             return Ok(new { car, imageUrl, recalls });
         }
-
+      /// <summary>
+      /// Gets all years in the database
+      /// </summary>
+      /// <returns>A list of years</returns>
         [Route("GetYears")]
         public async Task<List<string>> GetYears()
         {
             return await db.GetYears();
         }
-
-        [Route("GetMakesFromYear")]
-        public async Task<List<string>> GetMakesFromYear(string year)
+        /// <summary>
+        /// Gets a list of car makes from the database based on year input
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop down, including the user-selected year</param>
+        /// <returns>A list of makes</returns>
+        [Route("GetMakes")]
+        [HttpPost]
+        public async Task<List<string>> GetMakesFromYear(ControllerParams selected)
         {
-            return await db.GetMakesFromYear(year);
+            return await db.GetMakesFromYear(selected.year);
         }
-
-        [Route("GetModelsFromYearMake")]
-        public async Task<List<string>> GetModelsFromYearMake(string year, string make)
+        /// <summary>
+        /// Gets a list of car models from the database based on year and make input
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop down, including the user-selected year and make</param>
+        /// <returns>A list of models</returns>
+        [Route("GetModels")]
+        [HttpPost]
+        public async Task<List<string>> GetModelsFromYearMake(ControllerParams selected)
         {
-            return await db.GetModelsFromYearMake(year, make);
+            return await db.GetModelsFromYearMake(selected.year, selected.make);
         }
-
-        [Route("GetTrimsByYearMakeModel")]
-        public async Task<List<string>> GetTrimsByYearMakeModel(string year, string make, string model)
+        /// <summary>
+        /// Gets a list of car trim levels from the database based on year, make, and model input
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop downs, including the user-selected year, make, and model</param>
+        /// <returns>A list of car trim levels</returns>
+        [Route("GetTrims")]
+        [HttpPost]
+        public async Task<List<string>> GetTrimsByYearMakeModel(ControllerParams selected)
         {
-            return await db.GetTrimsFromYearMakeModel(year, make, model);
+            return await db.GetTrimsFromYearMakeModel(selected.year, selected.make, selected.model);
         }
+        /// <summary>
+        /// Gets a list of cars from database based on year input
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop downs, including the user-selected year</param>
+        /// <returns>A list of cars</returns>
         [Route("GetCarsFromYear")]
-        public async Task<List<Car>> GetCarsFromYear(string year)
+        [HttpPost]
+        public async Task<List<Car>> GetCarsFromYear(ControllerParams selected)
         {
-            return await db.GetCarsFromYear(year);
+            return await db.GetCarsFromYear(selected.year);
         }
-
+        /// <summary>
+        /// Gets a list of cars from database based on year and make input
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop downs, including the user-selected year and make</param>
+        /// <returns>A list of cars</returns>
         [Route("GetCarsFromYearMake")]
-        public async Task<List<Car>> GetCarsFromYearMake(string year, string make)
+        [HttpPost]
+        public async Task<List<Car>> GetCarsFromYearMake(ControllerParams selected)
         {
-            return await db.GetCarsFromYearMake(year, make);
+            return await db.GetCarsFromYearMake(selected.year, selected.make);
         }
-
+        /// <summary>
+        /// Gets a list of cars from database based on year, make, and model input
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop downs, including the user-selected year, make, and model</param>
+        /// <returns>A list of cars</returns>
         [Route("GetCarsFromYearMakeModel")]
-        public async Task<List<Car>> GetCarsFromYearMakeModel(string year, string make, string model)
+        [HttpPost]
+        public async Task<List<Car>> GetCarsFromYearMakeModel(ControllerParams selected)
         {
-            return await db.GetCarsFromYearMakeModel(year, make, model);
+            return await db.GetCarsFromYearMakeModel(selected.year, selected.make, selected.model);
         }
-
+        /// <summary>
+        /// Gets a list of cars from database based on year, make, model, and trim input
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop downs, including the user-selected year, make, model, and trim</param>
+        /// <returns>A list of cars</returns>
         [Route("GetCarsFromYearMakeModelTrim")]
-        public async Task<List<Car>> GetCarsFromYearMake(string year, string make, string model, string trim)
+        [HttpPost]
+        public async Task<List<Car>> GetCarsFromYearMakeModelTrim(ControllerParams selected)
         {
-            return await db.GetCarsFromYearMakeModelTrim(year, make, model, trim);
+           if (selected == null)
+               selected = new ControllerParams() {
+                   year = "2000"
+               };
+            var cars =  await db.GetCarsFromYearMakeModelTrim(selected.year, selected.make, selected.model, selected.trim);
+            return cars;
+        }
+        /// <summary>
+        /// Returns a count of the cars returned by the query
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop downs and javascript instantiation</param>
+        /// <returns>An int/the number of cars returned by query</returns>
+        [Route("GetCarCount")]
+        [HttpPost]
+        public async Task<int> GetCarCount(ControllerParams selected)
+        {
+            var carCount = await db.GetCarCount(selected.year, selected.make, selected.model, selected.trim, selected.filter);
+            return carCount;
+        }
+        /// <summary>
+        /// Gets a list of cars from database based user inputs
+        /// </summary>
+        /// <param name="selected">an object with selected properties from drop downs and javascript instantiation</param>
+        /// <returns>A list of cars</returns>
+        [Route("GetCars")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetCars(ControllerParams selected)
+        {
+         var cars = (await db.GetCars(selected.year, selected.make, selected.model, selected.trim, selected.filter, selected.paging, selected.page, selected.perPage, selected.sortColumn, selected.sortDirection, selected.sortByReverse));
+         return Ok(cars);
         }
     }
 }
