@@ -18,6 +18,9 @@
 #services, #contact {
     background-color: #0094ff;
 }
+#services a {
+    color: #000;
+}
 .car-image{
     max-width: 700px;
     display: block;

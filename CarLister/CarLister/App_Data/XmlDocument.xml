@@ -500,7 +500,7 @@
         </member>
         <member name="M:CarLister.Controllers.CarController.GetYears">
             <summary>
-            Gets all years in the database
+            Gets a list of all years in the database
             </summary>
             <returns>A list of years</returns>
         </member>

@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Budgeter.Models;
+using SendGrid;
+using System.Configuration;
+using System.Net;
 
 namespace Budgeter
 {
@@ -18,7 +21,19 @@ namespace Budgeter
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
+            SendGridMessage myMessage = new SendGridMessage();
+            myMessage.AddTo(message.Destination);
+            myMessage.Subject = message.Subject;
+            myMessage.Text = message.Body;
+            myMessage.Html = message.Body;
+           // Plug in your email service here to send an email.
+            var username = ConfigurationManager.AppSettings["SendGridUserName"];
+            var password = ConfigurationManager.AppSettings["SendGridUserPassword"];
+            var from = ConfigurationManager.AppSettings["ContactEmail"];
+            myMessage.From = new System.Net.Mail.MailAddress(from);
+            var credentials = new NetworkCredential(username, password);
+            var transportWeb = new Web(credentials);
+            transportWeb.DeliverAsync(myMessage);
             return Task.FromResult(0);
         }
     }

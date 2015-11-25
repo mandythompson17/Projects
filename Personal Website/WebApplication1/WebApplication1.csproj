@@ -222,6 +222,10 @@
     <Content Include="assets\projects\161H.jpg" />
     <Content Include="assets\projects\230.jpg" />
     <Content Include="assets\projects\calculator-385506_640.jpg" />
+    <Content Include="assets\projects\carfinder 3.png" />
+    <Content Include="assets\projects\carfinder 4.png" />
+    <Content Include="assets\projects\carfinder.png" />
+    <Content Include="assets\projects\carfinder2.png" />
     <Content Include="assets\projects\company-logo.png" />
     <Content Include="assets\projects\factory-634400_640.jpg" />
     <Content Include="assets\projects\hakunamatata-666532_640.jpg" />
@@ -234,6 +238,7 @@
     <Content Include="assets\projects\quotes-729173_640.jpg" />
     <Content Include="assets\projects\search-engine-optimization-715759_640.jpg" />
     <Content Include="assets\projects\soda-686984_640.jpg" />
+    <Content Include="assets\projects\vintage-convertible-automobile.jpg" />
     <Content Include="assets\projects\yashica-711794_640.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

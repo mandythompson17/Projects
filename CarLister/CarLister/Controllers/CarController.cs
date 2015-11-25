@@ -142,7 +142,7 @@ namespace CarLister.Controllers
             return Ok(new { car, imageUrl, recalls });
         }
       /// <summary>
-      /// Gets all years in the database
+      /// Gets a list of all years in the database
       /// </summary>
       /// <returns>A list of years</returns>
         [Route("GetYears")]

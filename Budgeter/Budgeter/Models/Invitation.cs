@@ -12,7 +12,9 @@ namespace Budgeter.Models
         public string Email { get; set; }
         public string Code { get; set; }
         public bool IsRegistered { get; set; }
+        public string InviterId { get; set; }
 
         public virtual Household Household { get; set; }
+        public virtual ApplicationUser Inviter { get; set; }
     }
 }
