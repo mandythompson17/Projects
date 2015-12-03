@@ -10,6 +10,7 @@ using Budgeter.Models;
 
 namespace Budgeter.Controllers
 {
+    [AuthorizeHouseholdRequired]
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,7 +18,31 @@ namespace Budgeter.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var HBudgets = db.Budgets.Where(b => b.HouseholdId == HId).ToList();
+            var HTrans = db.Transactions.Where(t => t.Account.HouseholdId == HId).ToList();
+            var HCats = new List<Category>();
+            foreach (var bItem in HBudgets)
+            {
+                var cat = db.Categories.Find(bItem.CategoryId);
+                if (!HCats.Any(c => c.Id == cat.Id))
+                {
+                    HCats.Add(cat);
+                }
+            }
+            foreach (var trans in HTrans)
+            {
+                var cat = db.Categories.Find(trans.CategoryId);
+                if (!HCats.Any(c => c.Id == cat.Id))
+                {
+                    HCats.Add(cat);
+                }
+            }
+            foreach (var cat in HCats)
+            {
+                cat.Transactions = db.Transactions.Where(t => t.CategoryId == cat.Id && t.Account.HouseholdId == HId).ToList();
+            }
+            return View(HCats);
         }
 
         // GET: Categories/Details/5

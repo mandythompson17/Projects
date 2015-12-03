@@ -13,7 +13,9 @@ namespace Budgeter.Models
         public string UserId { get; set; }
         public int CategoryId { get; set; }
         public DateTimeOffset Date { get; set; }
+        public decimal Amount { get; set; }
         public decimal ReconciliationAmount { get; set; }
+        public bool IsReconciled { get; set;}
         public bool IsWithdrawal { get; set; }
         public string Description { get; set; }
         public bool IsDeleted { get; set; }

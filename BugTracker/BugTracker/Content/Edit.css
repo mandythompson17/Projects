@@ -59,6 +59,14 @@
     border: 2px solid #aaa;
 }
 
-#ticketTable {
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+     min-width: 10px; 
+     padding: 2px; 
 
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color:transparent;
+    background:none;
+    border:1px solid #fff;
 }

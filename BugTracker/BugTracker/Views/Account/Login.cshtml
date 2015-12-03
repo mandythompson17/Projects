@@ -46,7 +46,13 @@
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
                     </p>
             }
-        </section>
+        </section> @Url.Action()
+    </div>
+    <div class="col-md-4">
+        <form role="form" method="post" action="@Url.Action("GuestLogin", "Account", new { id = "df17eb7f-f910-4afa-802e-ecb39935f9a9" })">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">Login as Guest Admin</button>
+        </form>
     </div>
 
     @*<div class="col-md-4">

@@ -10,6 +10,7 @@ using Budgeter.Models;
 
 namespace Budgeter.Controllers
 {
+    [AuthorizeHouseholdRequired]
     public class BudgetsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

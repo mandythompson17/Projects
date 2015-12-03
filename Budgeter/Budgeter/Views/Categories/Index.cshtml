@@ -9,6 +9,74 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@foreach (var cat in Model)
+{
+    var loop = 1;
+    var tableId = "cat" + loop;
+    <div class="row">
+        <div class="box span12" ontablet="span12" ondesktop="span12">
+            <div class="box-header">
+                <h2><i class="fa fa-credit-card"></i><span class="break"></span>@cat.Name</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn-minimize"><i class="fa fa-angle-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <table class="table-striped" id="@tableId">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>User</th>
+                            <th>Reconciliation Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transaction in cat.Transactions)
+                        {
+                            if (transaction.IsDeleted == false)
+                            {
+                                <tr>
+                                    <td>
+                                        @transaction.Date.ToString("M/d/y")
+                                    </td>
+                                    <td>
+                                        $@Html.DisplayFor(modelItem => transaction.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => transaction.Category.Name)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => transaction.User.DisplayName)
+                                    </td>
+                                    <td>
+                                        @if (transaction.IsReconciled)
+                                        {
+                                            <p>Reconciled</p>
+                                        }
+                                        @if (!transaction.IsReconciled)
+                                        {
+                                            <p>Unreconciled</p>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, null) |
+                                        @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id }, null) |
+                                        @Html.ActionLink("Delete", "Edit", "Transactions", new { id = transaction.Id }, null)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div><!--/span-->
+    </div>
+
+}
+
 <table class="table">
     <tr>
         <th>

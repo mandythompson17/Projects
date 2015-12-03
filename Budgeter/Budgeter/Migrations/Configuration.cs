@@ -1,5 +1,6 @@
 namespace Budgeter.Migrations
 {
+    using Budgeter.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,18 +15,20 @@ namespace Budgeter.Migrations
 
         protected override void Seed(Budgeter.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            // ---------------------- Categories ----------------------- //
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            if (!context.Categories.Any(c => c.Name == "Grocery"))
+            {
+                Category grocery = new Category();
+                grocery.Name = "Grocery";
+                context.Categories.Add(grocery);
+            }
+            if (!context.Categories.Any(c => c.Name == "Gas"))
+            {
+                Category gas = new Category();
+                gas.Name = "Gas";
+                context.Categories.Add(gas);
+            }
         }
     }
 }

@@ -12,11 +12,12 @@ using Budgeter.Models;
 
 namespace Budgeter.Controllers
 {
-    [Authorize]
+    [AuthorizeHouseholdRequired]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -76,10 +77,20 @@ namespace Budgeter.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //var user = db.Users.Find(User.Identity.GetUserId());
+                    //if (user.HouseholdId != null)
+                    //{
+                    //    return RedirectToAction("Details", "Households", new { id = user.HouseholdId });
+                    //}
+                    //else
+                    //{
+                    //    return RedirectToAction("Create", "Households");
+                    //}   
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
