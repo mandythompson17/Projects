@@ -5,6 +5,7 @@
 }
 
 <h2>Opened: @Model.DateOpened.ToString("MMMM d, yyyy")</h2>
+<h2>Primary Account Owner: @Model.Owner.DisplayName</h2>
 
 <div class="span12">
     <div class="row text-center">
@@ -29,7 +30,7 @@
                             <th>Date</th>
                             <th>Amount</th>
                             <th>Category</th>
-                            <th>User</th>
+                            <th>Added By</th>
                             <th>Reconciliation Status</th>
                             <th>Actions</th>
                         </tr>
@@ -64,7 +65,7 @@
                                     <td>
                                         @Html.ActionLink("Edit", "Edit", "Transactions", new { id = item.Id }, null) |
                                         @Html.ActionLink("Details", "Details", "Transactions", new { id = item.Id }, null) |
-                                        @Html.ActionLink("Delete", "Edit", "Transactions", new { id = item.Id }, null)
+                                        @Html.ActionLink("Delete", "Delete", "Transactions", new { id = item.Id }, null)
                                     </td>
                                 </tr>
                             }

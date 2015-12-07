@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<Budgeter.Models.Category>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Categories";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h1>Transactions By Category</h1>
+<hr />
 
 @foreach (var cat in Model)
 {
@@ -19,11 +16,12 @@
             <div class="box-header">
                 <h2><i class="fa fa-credit-card"></i><span class="break"></span>@cat.Name</h2>
                 <div class="box-icon">
+                    <a href="@Url.Action("Edit", "Categories", new { id = cat.Id })">Edit</a>
                     <a href="#" class="btn-minimize"><i class="fa fa-angle-up"></i></a>
                 </div>
             </div>
             <div class="box-content">
-                <table class="table-striped" id="@tableId">
+                <table class="table table-striped" id="@tableId">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -64,7 +62,7 @@
                                     <td>
                                         @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, null) |
                                         @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id }, null) |
-                                        @Html.ActionLink("Delete", "Edit", "Transactions", new { id = transaction.Id }, null)
+                                        @Html.ActionLink("Delete", "Delete", "Transactions", new { id = transaction.Id }, null)
                                     </td>
                                 </tr>
                             }
@@ -77,25 +75,3 @@
 
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>

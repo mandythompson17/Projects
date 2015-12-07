@@ -65,3 +65,10 @@
 .part-form {
     border: 2px gray solid;
 }
+.good {
+    color: #00A300;
+}
+.bad {
+    color: #ff0000;
+    font-weight: bold;
+}

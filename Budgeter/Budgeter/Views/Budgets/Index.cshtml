@@ -1,45 +1,92 @@
 ﻿@model IEnumerable<Budgeter.Models.Budget>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Budget Items";
 }
 
-<h2>Index</h2>
+<h1>Budget Items</h1>
+<hr />
+<div class="row">
+    <div class="col-md-7">
+        <div class="box span12" ontablet="span12" ondesktop="span12">
+            <div class="box-header">
+                <h2><i class="fa fa-tasks"></i><span class="break"></span>Budget Items</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn-minimize"><i class="fa fa-angle-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+                        <th>
+                            Amount Spent
+                        </th>
+                        <th>Amount Remaining</th>
+                        <th>
+                            Status
+                        </th>
+                        <th>Actions</th>
+                    </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Household.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th></th>
-    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category.Name)
+                            </td>
+                            <td>
+                                $@Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                $@Math.Abs(item.Spent)
+                            </td>
+                            <td>
+                                $@(item.Amount + item.Spent) 
+                            </td>
+                            <td>
+                                @if (item.IsOver)
+                                {
+                                    <p class="bad">Over Budget!</p>
+                                }
+                                @if (!item.IsOver)
+                                {
+                                    if(item.Amount + item.Spent == 0)
+                                    {
+                                        <p class="bad">Stop Spending!</p>
+                                    }
+                                    if (item.Amount + item.Spent != 0)
+                                    {
+                                        <p class="good">Keep Spending!</p>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Household.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+                </table>
+            </div>
+        </div><!--/span-->
+    </div>
+    <div class="col-md-4 col-md-offset-1">
+        <div class="row part-form">
+            @Html.Action("_Create", "Categories")
+        </div>
+        <br />
+        <div class="row part-form">
+            @Html.Action("_Create", "Budgets")
+        </div>
+    </div>
 
-</table>
+</div>
+

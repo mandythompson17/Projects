@@ -410,6 +410,8 @@
     <Content Include="Content\DataTables-1.10.10\media\images\Sorting icons.psd" />
     <Content Include="Content\DataTables-1.10.10\extensions\Buttons\css\mixins.scss" />
     <Content Include="Content\DataTables-1.10.10\extensions\Buttons\css\common.scss" />
+    <None Include="Properties\PublishProfiles\thompson-budgeter %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\thompson-budgeter.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -526,6 +528,8 @@
     <Content Include="Views\Home\IndexA.cshtml" />
     <Content Include="Views\BankAccounts\_Create.cshtml" />
     <Content Include="Views\Transactions\_Create.cshtml" />
+    <Content Include="Views\Categories\_Create.cshtml" />
+    <Content Include="Views\Budgets\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

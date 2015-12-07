@@ -27,8 +27,9 @@ namespace Budgeter.Controllers
 
         // GET: Households/Details/5
         [AuthorizeHouseholdRequired]
-        public ActionResult Details(int? id)
+        public ActionResult Details()
         {
+            var id = Convert.ToInt32(User.Identity.GetHouseholdId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -42,7 +43,7 @@ namespace Budgeter.Controllers
         }
 
         // GET: Households/Create
-        [AuthorizeHouseholdRequired]
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -52,9 +53,9 @@ namespace Budgeter.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [AuthorizeHouseholdRequired]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Household household)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name")] Household household)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +65,18 @@ namespace Budgeter.Controllers
                 user.Household = household;
                 household.Members.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var hName = db.Households.Where(hn => hn.Name == household.Name).FirstOrDefault();
+                var hhid = hName.Id;
+
+                HouseholdsController.DefaultCategories("Salary", hhid);
+                HouseholdsController.DefaultCategories("Apparel", hhid);
+                HouseholdsController.DefaultCategories("Bills", hhid);
+                HouseholdsController.DefaultCategories("Gas", hhid);
+                HouseholdsController.DefaultCategories("Grocery", hhid);
+                HouseholdsController.DefaultCategories("Miscellaneous", hhid);
+                await ControllerContext.HttpContext.RefreshAuthentication(user);
+                return RedirectToAction("Details");
             }
 
             return View(household);
@@ -74,7 +86,7 @@ namespace Budgeter.Controllers
         [HttpPost]
         [AuthorizeHouseholdRequired]
         [ValidateAntiForgeryToken]
-        public ActionResult Join(string code)
+        public async Task<ActionResult> Join(string code)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +99,7 @@ namespace Budgeter.Controllers
                     user.HouseholdId = household.Id;
                     user.Household = household;
                     db.SaveChanges();
+                    await ControllerContext.HttpContext.RefreshAuthentication(user);
                     return RedirectToAction("Index");
                 }
                 else
@@ -206,6 +219,17 @@ namespace Budgeter.Controllers
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
+
+        public static void DefaultCategories(string catName, int hhId)
+        {
+            Category category = new Category();
+            category.Name = catName;
+            category.HouseholdId = hhId;
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Categories.Add(category);
+            db.SaveChanges();
+        }
 
         protected override void Dispose(bool disposing)
         {

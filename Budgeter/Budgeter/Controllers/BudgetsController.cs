@@ -18,8 +18,26 @@ namespace Budgeter.Controllers
         // GET: Budgets
         public ActionResult Index()
         {
-            var budgets = db.Budgets.Include(b => b.Category).Include(b => b.Household);
-            return View(budgets.ToList());
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var budgets = db.Budgets.Where(b => b.HouseholdId == HId).Include(b => b.Category).ToList();
+            //foreach(var budget in budgets)
+            //{
+            //    var transactions = db.Transactions.Where(t => t.CategoryId == budget.CategoryId && t.Account.HouseholdId == HId && t.IsDeleted == false).ToList();
+            //    foreach (var trans in transactions)
+            //    {
+            //        budget.Spent += trans.Amount;
+            //    }
+            //    if (budget.Spent > budget.Amount)
+            //    {
+            //        budget.IsOver = true;
+            //    }
+            //    else
+            //    {
+            //        budget.IsOver = false;
+            //    }
+            //}
+            db.SaveChanges();
+            return View(budgets);
         }
 
         // GET: Budgets/Details/5
@@ -37,12 +55,20 @@ namespace Budgeter.Controllers
             return View(budget);
         }
 
-        // GET: Budgets/Create
-        public ActionResult Create()
+        //// GET: Budgets/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+        //    return View();
+        //}
+
+        // GET: Budgets/_Create
+        public PartialViewResult _Create()
         {
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
-            return View();
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var cats = db.Categories.Where(c => c.HouseholdId == HId);
+            ViewBag.CategoryId = new SelectList(cats, "Id", "Name");
+            return PartialView();
         }
 
         // POST: Budgets/Create
@@ -50,17 +76,32 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HouseholdId,CategoryId,Amount")] Budget budget)
+        public ActionResult Create([Bind(Include = "Id,HouseholdId,CategoryId,Amount,Spent,IsOver")] Budget budget)
         {
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
             if (ModelState.IsValid)
             {
+                budget.HouseholdId = HId;
+                budget.Household = db.Households.Find(HId);
+                var transactions = db.Transactions.Where(t => t.CategoryId == budget.CategoryId && t.Account.HouseholdId == HId && t.IsDeleted == false).ToList();
+                foreach (var trans in transactions)
+                {
+                    budget.Spent += trans.Amount;
+                }
+                if (budget.Amount + budget.Spent < 0)
+                {
+                    budget.IsOver = true;
+                }
+                else
+                {
+                    budget.IsOver = false;
+                }
                 db.Budgets.Add(budget);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budget.CategoryId);
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);
+            var cats = db.Categories.Where(c => c.HouseholdId == HId);
+            ViewBag.CategoryId = new SelectList(cats, "Id", "Name", budget.CategoryId);
             return View(budget);
         }
 
@@ -77,7 +118,6 @@ namespace Budgeter.Controllers
                 return HttpNotFound();
             }
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budget.CategoryId);
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);
             return View(budget);
         }
 
@@ -86,16 +126,29 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,HouseholdId,CategoryId,Amount")] Budget budget)
+        public ActionResult Edit([Bind(Include = "Id,HouseholdId,CategoryId,Amount,Spent,IsOver")] Budget budget)
         {
             if (ModelState.IsValid)
             {
+                var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+                var transactions = db.Transactions.Where(t => t.CategoryId == budget.CategoryId && t.Account.HouseholdId == HId).ToList();
+                foreach (var trans in transactions)
+                {
+                    budget.Spent += trans.Amount;
+                }
+                if (budget.Spent > budget.Amount)
+                {
+                    budget.IsOver = true;
+                }
+                else
+                {
+                    budget.IsOver = false;
+                }
                 db.Entry(budget).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budget.CategoryId);
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);
             return View(budget);
         }
 

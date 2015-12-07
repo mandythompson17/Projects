@@ -12,7 +12,6 @@ using Budgeter.Models;
 
 namespace Budgeter.Controllers
 {
-    [AuthorizeHouseholdRequired]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -81,16 +80,15 @@ namespace Budgeter.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    //var user = db.Users.Find(User.Identity.GetUserId());
-                    //if (user.HouseholdId != null)
-                    //{
-                    //    return RedirectToAction("Details", "Households", new { id = user.HouseholdId });
-                    //}
-                    //else
-                    //{
-                    //    return RedirectToAction("Create", "Households");
-                    //}   
-                    return RedirectToAction("Index", "Home");
+                    var user = await UserManager.FindAsync(model.Email, model.Password);
+                    if (user.HouseholdId != null)
+                    {
+                        return RedirectToAction("Details", "Households", new { id = user.HouseholdId });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Create", "Households");
+                    }   
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

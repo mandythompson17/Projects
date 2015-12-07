@@ -15,20 +15,8 @@ namespace Budgeter.Migrations
 
         protected override void Seed(Budgeter.Models.ApplicationDbContext context)
         {
-            // ---------------------- Categories ----------------------- //
-
-            if (!context.Categories.Any(c => c.Name == "Grocery"))
-            {
-                Category grocery = new Category();
-                grocery.Name = "Grocery";
-                context.Categories.Add(grocery);
-            }
-            if (!context.Categories.Any(c => c.Name == "Gas"))
-            {
-                Category gas = new Category();
-                gas.Name = "Gas";
-                context.Categories.Add(gas);
-            }
+            
+           
         }
     }
 }

@@ -40,7 +40,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Household", "Index", "Households")</li>
+                    <li>@Html.ActionLink("Household", "Details", "Households")</li>
+                    <li>@Html.ActionLink("Transactions By Category", "Index", "Categories")</li>
+                    <li>@Html.ActionLink("Budget Items", "Index", "Budgets")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

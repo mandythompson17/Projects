@@ -18,10 +18,12 @@ namespace Budgeter.Models
         public string Name { get; set; }
         public int HouseholdId { get; set; }
         public decimal Balance { get; set; }
+        public string OwnerId { get; set; }
         public DateTimeOffset DateOpened { get; set; }
         public bool IsDeleted { get; set; }
 
         public virtual Household Household { get; set; }
+        public virtual ApplicationUser Owner { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

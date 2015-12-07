@@ -19,25 +19,26 @@ namespace Budgeter.Controllers
         public ActionResult Index()
         {
             var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
-            var HBudgets = db.Budgets.Where(b => b.HouseholdId == HId).ToList();
-            var HTrans = db.Transactions.Where(t => t.Account.HouseholdId == HId).ToList();
-            var HCats = new List<Category>();
-            foreach (var bItem in HBudgets)
-            {
-                var cat = db.Categories.Find(bItem.CategoryId);
-                if (!HCats.Any(c => c.Id == cat.Id))
-                {
-                    HCats.Add(cat);
-                }
-            }
-            foreach (var trans in HTrans)
-            {
-                var cat = db.Categories.Find(trans.CategoryId);
-                if (!HCats.Any(c => c.Id == cat.Id))
-                {
-                    HCats.Add(cat);
-                }
-            }
+            //var HBudgets = db.Budgets.Where(b => b.HouseholdId == HId).ToList();
+            //var HTrans = db.Transactions.Where(t => t.Account.HouseholdId == HId).ToList();
+            //var HCats = new List<Category>();
+            //foreach (var bItem in HBudgets)
+            //{
+            //    var cat = db.Categories.Find(bItem.CategoryId);
+            //    if (!HCats.Any(c => c.Id == cat.Id))
+            //    {
+            //        HCats.Add(cat);
+            //    }
+            //}
+            //foreach (var trans in HTrans)
+            //{
+            //    var cat = db.Categories.Find(trans.CategoryId);
+            //    if (!HCats.Any(c => c.Id == cat.Id))
+            //    {
+            //        HCats.Add(cat);
+            //    }
+            //}
+            var HCats = db.Categories.Where(c => c.HouseholdId == HId).ToList();
             foreach (var cat in HCats)
             {
                 cat.Transactions = db.Transactions.Where(t => t.CategoryId == cat.Id && t.Account.HouseholdId == HId).ToList();
@@ -60,10 +61,16 @@ namespace Budgeter.Controllers
             return View(category);
         }
 
-        // GET: Categories/Create
-        public ActionResult Create()
+        //// GET: Categories/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
+
+        // GET: Categories/_Create
+        public PartialViewResult _Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Categories/Create
@@ -71,13 +78,18 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Category category)
+        public ActionResult Create([Bind(Include = "Id,Name,HouseholdId,IsDeleted")] Category category)
         {
             if (ModelState.IsValid)
             {
+                var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+                var household = db.Households.Find(HId);
+                category.HouseholdId = HId;
+                category.Household = household;
+                category.IsDeleted = false;
                 db.Categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Budgets");
             }
 
             return View(category);
@@ -103,7 +115,7 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Name,HouseholdId,Household")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -135,7 +147,8 @@ namespace Budgeter.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
+            //db.Categories.Remove(category);
+            category.IsDeleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

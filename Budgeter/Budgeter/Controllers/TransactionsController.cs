@@ -42,7 +42,9 @@ namespace Budgeter.Controllers
         public PartialViewResult _Create(int? id)
         {
             //ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name");
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var cats = db.Categories.Where(c => c.HouseholdId == HId);
+            ViewBag.CategoryId = new SelectList(cats, "Id", "Name");
             var transaction = new Transaction();
             transaction.BankAccountId = Convert.ToInt32(id);
             return PartialView(transaction);
@@ -82,6 +84,19 @@ namespace Budgeter.Controllers
                 var account = db.BankAccounts.Find(transaction.BankAccountId);
                 transaction.Account = account;
                 transaction.Account.Balance += transaction.Amount;
+                var budget = db.Budgets.FirstOrDefault(b => b.CategoryId == transaction.CategoryId);
+                if (budget != null)
+                {
+                    budget.Spent += transaction.Amount;
+                    if (budget.Amount + budget.Spent < 0)
+                    {
+                        budget.IsOver = true;
+                    }
+                    else
+                    {
+                        budget.IsOver = false;
+                    }
+                }
                 db.Transactions.Add(transaction);
                 account.Transactions.Add(transaction);
                 db.SaveChanges();
@@ -89,7 +104,9 @@ namespace Budgeter.Controllers
             }
 
             //ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var cats = db.Categories.Where(c => c.HouseholdId == HId);
+            ViewBag.CategoryId = new SelectList(cats, "Id", "Name", transaction.CategoryId);
             //ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", transaction.UserId);
             return View(transaction);
         }
@@ -156,9 +173,11 @@ namespace Budgeter.Controllers
             {
                 return HttpNotFound();
             }
-            var accounts = db.BankAccounts.Where(a => a.IsDeleted == false);
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var accounts = db.BankAccounts.Where(a => a.HouseholdId == HId && a.IsDeleted == false);
             ViewBag.BankAccountId = new SelectList(accounts, "Id", "Name", transaction.BankAccountId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
+            var cats = db.Categories.Where(c => c.HouseholdId == HId);
+            ViewBag.CategoryId = new SelectList(cats, "Id", "Name", transaction.CategoryId);
             //ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", transaction.UserId);
             return View(transaction);
         }
@@ -188,6 +207,20 @@ namespace Budgeter.Controllers
                     {
                         account.Balance -= OldTransaction.Amount;
                         account.Balance += transaction.Amount;
+                        //var dif = OldTransaction.Amount - transaction.Amount;
+                        //account.Balance += dif;
+                        var budget = db.Budgets.FirstOrDefault(b => b.CategoryId == transaction.CategoryId);
+                        budget.Spent -= OldTransaction.Amount;
+                        budget.Spent += transaction.Amount;
+                        if (budget.Amount + budget.Spent < 0)
+                        {
+                            budget.IsOver = true;
+                        }
+                        else
+                        {
+                            budget.IsOver = false;
+                        }
+
                     }
                 }
                 if (transaction.Amount <= 0)
@@ -207,12 +240,15 @@ namespace Budgeter.Controllers
                     transaction.IsReconciled = true;
                 }
                 db.Entry(transaction).State = EntityState.Modified;
+                db.Entry(account).Property("Balance").IsModified = true;
                 db.SaveChanges();
                 return RedirectToAction("Details", "BankAccounts", new { id = transaction.BankAccountId });
             }
-            var accounts = db.BankAccounts.Where(a => a.IsDeleted == false);
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var accounts = db.BankAccounts.Where(a => a.HouseholdId == HId && a.IsDeleted == false);
             ViewBag.BankAccountId = new SelectList(accounts, "Id", "Name", transaction.BankAccountId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
+            var cats = db.Categories.Where(c => c.HouseholdId == HId);
+            ViewBag.CategoryId = new SelectList(cats, "Id", "Name", transaction.CategoryId);
             //ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", transaction.UserId);
             return View(transaction);
         }
@@ -241,6 +277,16 @@ namespace Budgeter.Controllers
             var account = db.BankAccounts.Find(transaction.BankAccountId);
             transaction.IsDeleted = true;
             account.Balance -= transaction.Amount;
+            var budget = db.Budgets.FirstOrDefault(b => b.CategoryId == transaction.CategoryId);
+            budget.Spent -= transaction.Amount;
+            if (budget.Spent > budget.Amount)
+            {
+                budget.IsOver = true;
+            }
+            else
+            {
+                budget.IsOver = false;
+            }
             //db.Transactions.Remove(transaction);
             db.SaveChanges();
             return RedirectToAction("Details", "BankAccounts", new { id = transaction.BankAccountId });

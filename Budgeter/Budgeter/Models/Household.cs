@@ -13,6 +13,8 @@ namespace Budgeter.Models
             this.Accounts = new HashSet<BankAccount>();
             this.Budgets = new HashSet<Budget>();
             this.Members = new HashSet<ApplicationUser>();
+            this.Categories = new HashSet<Category>();
+
         }
 
         public int Id { get; set; }
@@ -22,6 +24,7 @@ namespace Budgeter.Models
         public virtual ICollection<ApplicationUser> Members { get; set; }
         public virtual ICollection<BankAccount> Accounts { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
 
     }
 }

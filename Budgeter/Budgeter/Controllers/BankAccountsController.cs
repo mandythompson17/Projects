@@ -40,7 +40,9 @@ namespace Budgeter.Controllers
         // GET: BankAccounts/_Create
         public PartialViewResult _Create()
         {
-            //ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var members = db.Users.Where(u => u.HouseholdId == HId);
+            ViewBag.OwnerId = new SelectList(members, "Id", "DisplayName");
             return PartialView();
         }
 
@@ -49,7 +51,7 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Balance,DateOpened,IsDeleted")] BankAccount bankAccount)
+        public ActionResult Create([Bind(Include = "Name,Balance,DateOpened,IsDeleted,OwnerId")] BankAccount bankAccount)
         {
             var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
             if (ModelState.IsValid)
@@ -57,6 +59,7 @@ namespace Budgeter.Controllers
                
                 var household = db.Households.Find(HId);
                 bankAccount.HouseholdId = HId;
+                bankAccount.Owner = db.Users.Find(bankAccount.OwnerId);
                 bankAccount.DateOpened = System.DateTimeOffset.Now;
                 bankAccount.IsDeleted = false;
                 db.BankAccounts.Add(bankAccount);
@@ -65,9 +68,10 @@ namespace Budgeter.Controllers
                 db.SaveChanges();
             }
 
-            //ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", bankAccount.HouseholdId);
+            var members = db.Users.Where(u => u.HouseholdId == HId);
+            ViewBag.OwnerId = new SelectList(members, "Id", "DisplayName", bankAccount.OwnerId);
 
-            return RedirectToAction("Details", "Households", new { id = HId });
+            return RedirectToAction("Details", "Households");
         }
 
         // GET: BankAccounts/Create
@@ -109,6 +113,9 @@ namespace Budgeter.Controllers
             {
                 return HttpNotFound();
             }
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var members = db.Users.Where(u => u.HouseholdId == HId);
+            ViewBag.OwnerId = new SelectList(members, "Id", "DisplayName");
             //ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", bankAccount.HouseholdId);
             return View(bankAccount);
         }
@@ -118,14 +125,17 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,HouseholdId,Balance")] BankAccount bankAccount)
+        public ActionResult Edit([Bind(Include = "Id,Name,HouseholdId,Balance,OwnerId,DateOpened")] BankAccount bankAccount)
         {
             if (ModelState.IsValid)
             {
+                bankAccount.Owner = db.Users.Find(bankAccount.OwnerId);
                 db.Entry(bankAccount).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Households");
             }
+            var members = db.Users.Where(u => u.HouseholdId == bankAccount.HouseholdId);
+            ViewBag.OwnerId = new SelectList(members, "Id", "DisplayName", bankAccount.OwnerId);
             //ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", bankAccount.HouseholdId);
             return View(bankAccount);
         }
@@ -152,6 +162,10 @@ namespace Budgeter.Controllers
         {
             BankAccount bankAccount = db.BankAccounts.Find(id);
             bankAccount.IsDeleted = true;
+            foreach (var transaction in bankAccount.Transactions)
+            {
+                transaction.IsDeleted = true;
+            }
             //household.Accounts.Remove(bankAccount);
             ////db.BankAccounts.Remove(bankAccount);
             db.SaveChanges();
