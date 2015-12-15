@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         

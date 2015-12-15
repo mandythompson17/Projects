@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -190,6 +190,7 @@
     <Compile Include="Controllers\BankAccountsController.cs" />
     <Compile Include="Controllers\BudgetsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseholdsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -213,6 +214,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\budgeter.png" />
+    <Content Include="Assets\dollar-sign.jpg" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -336,6 +339,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\sprite.png" />
     <Content Include="Private.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -530,9 +534,12 @@
     <Content Include="Views\Transactions\_Create.cshtml" />
     <Content Include="Views\Categories\_Create.cshtml" />
     <Content Include="Views\Budgets\_Create.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Expense.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Expense.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Charts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -556,7 +563,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64156</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:64156/</IISUrl>
+          <IISUrl>https://localhost:44301/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

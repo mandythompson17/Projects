@@ -14,15 +14,17 @@
     <link href="~/Content/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="~/Content/style.css" rel="stylesheet" />
     <link href="~/Content/style-responsive.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
+    @*<link href="~/Content/font-awesome.min.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="~/Content/DataTables-1.10.10/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link href="~/Content/Edits.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 
 
     <!-- start: Favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="~/Assets/dollar-sign.jpg">
     <!-- end: Favicon -->
 </head>
 <body>
@@ -39,10 +41,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Household", "Details", "Households")</li>
-                    <li>@Html.ActionLink("Transactions By Category", "Index", "Categories")</li>
-                    <li>@Html.ActionLink("Budget Items", "Index", "Budgets")</li>
+                    
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Dashboard", "Index", "Households")</li>
+                        <li>@Html.ActionLink("Household", "Details", "Households")</li>
+                        <li>@Html.ActionLink("Transactions By Category", "Index", "Categories")</li>
+                        <li>@Html.ActionLink("Budget Items", "Index", "Budgets")</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -175,8 +183,8 @@
     </div>*@
     <!-- start: Header -->
 
-    <div class="container-fluid-full">
-        <div class="row-fluid">
+    @*<div class="container-fluid-full">
+        <div class="row-fluid">*@
 
             <!-- start: Main Menu 
             <div id="sidebar-left" class="span2">
@@ -188,19 +196,20 @@
                 </div>
             </div>
             <!-- end: Main Menu -->
-
-            <div class="container body-content span10" id="content">
+    <div class="container-fluid-full">
+        <div class="row-fluid">
+            <div class="container body-content" id="content">
                 @RenderBody()
                 <hr />
-                <footer>
-                    <p>
-                        &copy; @DateTime.Now.Year - Thompson Budgeter
-                    </p>
-                </footer>
-            </div>
             </div>
         </div>
+    </div>
 
+    <footer>
+        <p>
+            &copy; @DateTime.Now.Year - Thompson Budgeter
+        </p>
+    </footer>
 
             <noscript>
                 <div class="alert alert-block span10">
@@ -255,6 +264,8 @@
             <script src="~/Scripts/counter.js"></script>
             <script src="~/Scripts/retina.js"></script>
             <script src="~/Scripts/custom.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Budgeter.Models;
 
 namespace Budgeter.Controllers
 {
+    [RequireHttps]
     [AuthorizeHouseholdRequired]
     public class BankAccountsController : Controller
     {
@@ -18,7 +20,8 @@ namespace Budgeter.Controllers
         // GET: BankAccounts
         public ActionResult Index()
         {
-            var bankAccounts = db.BankAccounts.Where(b => b.IsDeleted == false).Include(b => b.Household);
+            var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var bankAccounts = db.BankAccounts.Where(b => b.IsDeleted == false && b.HouseholdId == HId).Include(b => b.Household);
             return View(bankAccounts.ToList());
         }
 
@@ -170,6 +173,41 @@ namespace Budgeter.Controllers
             ////db.BankAccounts.Remove(bankAccount);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        //POST: BankAccounts/Reconcile
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reconcile(int id, decimal recBalance)
+        {
+            BankAccount bankAccount = db.BankAccounts.Find(id);
+            if (bankAccount.Balance != recBalance)
+            {
+                var dif = recBalance - bankAccount.Balance;
+                Transaction equate = new Transaction {
+                    BankAccountId = bankAccount.Id,
+                    Account = bankAccount,
+                    Amount = dif,
+                    Date = System.DateTimeOffset.Now,
+                    Description = "Reconciliation",
+                    UserId = User.Identity.GetUserId(),
+                    IsDeleted = false
+                };
+                equate.User = db.Users.Find(equate.UserId);
+                if (equate.Amount <= 0)
+                {
+                    equate.IsWithdrawal = true;
+                }
+                else
+                {
+                    equate.IsWithdrawal = false;
+                }
+                bankAccount.Balance += equate.Amount;
+                db.Transactions.Add(equate);
+                bankAccount.Transactions.Add(equate);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", new { id = bankAccount.Id });
         }
 
         protected override void Dispose(bool disposing)

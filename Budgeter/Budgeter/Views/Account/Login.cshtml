@@ -1,46 +1,66 @@
 ﻿@using Budgeter.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Login";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
+<div class="row-fluid login-box">
+    <div class="login-content">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
+                <h1 class="text-center">@ViewBag.Title</h1>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        </div>
+                        <div class="col-md-10 input-prepend" title="Username">
+                            <span class="add-on"><i class="fa fa-user login-icon"></i></span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg span10" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        </div>
+                        <div class="col-md-10 input-prepend" title="Password">
+                            <span class="add-on"><i class="fa fa-lock login-icon"></i></span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg span10" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                @*<div class="row">
+                    <div class="form-group">
+                        <div>
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <div class="button-login">
+                            <input type="submit" value="Log in" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>*@
+    <label class="remember" for="RememberMe"><input type="checkbox" id="remember" />Remember me</label>
+
+    <div class="button-login">
+        <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+    <div class="clearfix"></div>
+                <hr />
                 <p>
                     @Html.ActionLink("Register as a new user", "Register")
                 </p>
@@ -49,8 +69,7 @@
                 </p>
             }
         </section>
-    </div>
-    <div class="col-md-4">
+        <hr />
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>

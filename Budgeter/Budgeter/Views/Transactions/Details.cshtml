@@ -1,25 +1,36 @@
 ﻿@model Budgeter.Models.Transaction
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Transaction Details";
 }
 
-<h2>Details</h2>
+<h2>Transaction Details</h2>
 
 <div>
-    <h4>Transaction</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Account.Name)
+            @Html.DisplayNameFor(model => model.Date)
         </dt>
+        <dd>
+            @Model.Date.ToString("m/d/yyyy")
+        </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd>
+            $@Math.Abs(Model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account)
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.Account.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
+            @Html.DisplayNameFor(model => model.Category)
         </dt>
 
         <dd>
@@ -27,35 +38,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.FirstName)
+            Added By
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReconciliationAmount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReconciliationAmount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsWithdrawal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsWithdrawal)
+            @Model.User.DisplayName
         </dd>
 
         <dt>
@@ -65,18 +52,9 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Account", "Details", "BankAccounts", new { id = Model.BankAccountId }, null)
 </p>

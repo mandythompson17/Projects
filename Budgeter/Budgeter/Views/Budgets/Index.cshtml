@@ -1,92 +1,282 @@
 ﻿@model IEnumerable<Budgeter.Models.Budget>
 
 @{
-    ViewBag.Title = "Budget Items";
+    ViewBag.Title = "Budget";
 }
 
-<h1>Budget Items</h1>
+<h1>Budget</h1>
 <hr />
 <div class="row">
-    <div class="col-md-7">
-        <div class="box span12" ontablet="span12" ondesktop="span12">
-            <div class="box-header">
-                <h2><i class="fa fa-tasks"></i><span class="break"></span>Budget Items</h2>
-                <div class="box-icon">
-                    <a href="#" class="btn-minimize"><i class="fa fa-angle-up"></i></a>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="box span12" ontablet="span12" ondesktop="span12">
+                <div class="box-header">
+                    <h2><i class="fa fa-tasks"></i><span class="break"></span>Budget Items</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn-minimize"><i class="fa fa-angle-up"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="box-content">
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Category.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Amount)
-                        </th>
-                        <th>
-                            Amount Spent
-                        </th>
-                        <th>Amount Remaining</th>
-                        <th>
-                            Status
-                        </th>
-                        <th>Actions</th>
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Category.Name)
-                            </td>
-                            <td>
-                                $@Html.DisplayFor(modelItem => item.Amount)
-                            </td>
-                            <td>
-                                $@Math.Abs(item.Spent)
-                            </td>
-                            <td>
-                                $@(item.Amount + item.Spent) 
-                            </td>
-                            <td>
-                                @if (item.IsOver)
+                <div class="box-content">
+                    <!-- Expense Table -->
+                    <h2><strong>Expense</strong></h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Category.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Amount)
+                                </th>
+                                <th>
+                                    Spent
+                                </th>
+                                <th>Remaining</th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ decimal bTotal = 0;}
+                            @{ decimal sTotal = 0;}
+                            @{ decimal rTotal = 0;}
+                            @foreach (var item in Model)
+                            {
+                                if (item.Category.IsExpense)
                                 {
-                                    <p class="bad">Over Budget!</p>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Category.Name)
+                                        </td>
+                                        <td>
+                                            $@Html.DisplayFor(modelItem => item.Amount)
+                                        </td>
+                                        <td>
+                                            $@Math.Abs(item.Spent)
+                                        </td>
+                                        <td>
+                                            $@(item.Amount + item.Spent)
+                                        </td>
+                                        <td>
+                                            @if (item.IsOver)
+                                            {
+                                                <p class="bad">Over Budget!</p>
+                                            }
+                                            @if (!item.IsOver)
+                                            {
+                                                if (item.Amount + item.Spent == 0 && item.Spent != 0)
+                                                {
+                                                    <p class="bad">Stop Spending!</p>
+                                                }
+                                                if (item.Amount + item.Spent != 0)
+                                                {
+                                                    <p class="good">Keep Spending!</p>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                        </td>
+                                    </tr>
+                                            { bTotal += item.Amount; }
+                                            { sTotal += item.Spent; }
+                                            { rTotal += (item.Amount + item.Spent); }
                                 }
-                                @if (!item.IsOver)
-                                {
-                                    if(item.Amount + item.Spent == 0)
+
+                            }
+                            <tr>
+                                <td>
+                                    <strong>Totals:</strong>
+                                </td>
+                                <td>
+                                    <strong>$@bTotal</strong>
+                                </td>
+                                <td>
+                                    <strong>$@Math.Abs(sTotal)</strong>
+                                </td>
+                                <td>
+                                    <strong>$@rTotal</strong>
+                                </td>
+                                <td>
+                                    @if (rTotal > 0)
+                                    {
+                                        <p class="good"><strong>Keep Spending!</strong></p>
+                                    }
+                                    @if (rTotal == 0)
                                     {
                                         <p class="bad">Stop Spending!</p>
                                     }
-                                    if (item.Amount + item.Spent != 0)
+                                    @if (rTotal < 0)
                                     {
-                                        <p class="good">Keep Spending!</p>
+                                        <p class="bad">Over Budget!</p>
                                     }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Income Table -->
+                    <h2><strong>Income</strong></h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Category.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Amount)
+                                </th>
+                                <th>
+                                    Actual
+                                </th>
+                                <th>Difference</th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ decimal iTotal = 0;}
+                            @{ decimal aTotal = 0;}
+                            @{ decimal dTotal = 0;}
+                            @foreach (var item in Model)
+                            {
+                                if (!item.Category.IsExpense)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Category.Name)
+                                        </td>
+                                        <td>
+                                            $@Html.DisplayFor(modelItem => item.Amount)
+                                        </td>
+                                        <td>
+                                            $@Math.Abs(item.Spent)
+                                        </td>
+                                        <td>
+                                            $@Math.Abs(item.Amount - item.Spent)
+                                        </td>
+                                        <td>
+                                            @if (item.IsOver)
+                                            {
+                                                <p class="good">Exceeded Expectations!</p>
+                                            }
+                                            @if (!item.IsOver)
+                                            {
+                                                if (item.Amount - item.Spent == 0 && item.Spent != 0)
+                                                {
+                                                    <p class="good">You're Good!</p>
+                                                }
+                                                if (item.Amount - item.Spent != 0)
+                                                {
+                                                    <p class="bad">Not There Yet!</p>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                        </td>
+                                    </tr>
+                                            { iTotal += item.Amount; }
+                                            { aTotal += item.Spent; }
+                                            { dTotal += (item.Amount - item.Spent); }
                                 }
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                            </td>
-                        </tr>
-                    }
 
-                </table>
+                            }
+                            <tr>
+                                <td>
+                                    <strong>Totals:</strong>
+                                </td>
+                                <td>
+                                    <strong>$@iTotal</strong>
+                                </td>
+                                <td>
+                                    <strong>$@Math.Abs(aTotal)</strong>
+                                </td>
+                                <td>
+                                    <strong>$@Math.Abs(dTotal)</strong>
+                                </td>
+                                <td>
+                                    @if (dTotal > 0)
+                                    {
+                                        <p class="bad">Keep Earning!</p>
+                                    }
+                                    @if (dTotal == 0)
+                                    {
+                                        <p class="good"><strong>You're Good!</strong></p>
+                                    }
+                                    @if (dTotal < 0)
+                                    {
+                                        <p class="good"><strong>Exceeded Expectations!</strong></p>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--/span-->
+        </div>
+        <div class="row">
+            <div class="box">
+                <div class="box-header">
+                    <h2><i class="fa fa-bar-chart"></i><span class="break"></span>Budget vs Spending By Category For This Month (dollars)</h2>
+                </div>
+                <div class="box-content">
+                    <div id="cat-bvs" style="height: 250px;"></div>
+                </div>
             </div>
-        </div><!--/span-->
+        </div>
     </div>
-    <div class="col-md-4 col-md-offset-1">
-        <div class="row part-form">
-            @Html.Action("_Create", "Categories")
+
+    <!--Create New Categories and Budget Items-->
+    <div class="col-md-3 col-md-offset-1">
+        <div class="row">
+            <div class="box">
+                <div class="box-header">
+                    <h2><i class="fa fa-plus-square"></i><span class="break"></span>Create New Category</h2>
+                </div>
+                <div class="box-content">
+                    @Html.Action("_Create", "Categories")
+                </div>
+            </div>
         </div>
         <br />
-        <div class="row part-form">
-            @Html.Action("_Create", "Budgets")
+        <div class="row">
+            <div class="box">
+                <div class="box-header">
+                    <h2><i class="fa fa-plus-square"></i><span class="break"></span>Create New Budget Item</h2>
+                </div>
+                <div class="box-content">
+                    @Html.Action("_Create", "Budgets")
+                </div>
+            </div>
         </div>
     </div>
 
 </div>
+
+@section scripts{
+<script>
+    $(function () {
+        $.post('@Url.Action("GetBudgvSpent", "Charts")').then(function (response) {
+            new Morris.Bar({
+                element: 'cat-bvs',
+                data: response.cData,
+                xkey: 'label',
+                ykeys: ['b', 's'],
+                labels: ['Amount Budgeted', 'Amount Spent'],
+                barColors: response.chartColors,
+                resize: true
+            });
+        });
+    });
+</script>
+
+}
 

@@ -28,7 +28,6 @@
                             <th>Amount</th>
                             <th>Category</th>
                             <th>User</th>
-                            <th>Reconciliation Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -48,16 +47,6 @@
                                         @Html.DisplayFor(modelItem => transaction.Category.Name)
                                     <td>
                                         @Html.DisplayFor(modelItem => transaction.User.DisplayName)
-                                    </td>
-                                    <td>
-                                        @if (transaction.IsReconciled)
-                                        {
-                                            <p>Reconciled</p>
-                                        }
-                                        @if (!transaction.IsReconciled)
-                                        {
-                                            <p>Unreconciled</p>
-                                        }
                                     </td>
                                     <td>
                                         @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, null) |

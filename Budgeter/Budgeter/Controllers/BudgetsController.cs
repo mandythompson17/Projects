@@ -10,6 +10,7 @@ using Budgeter.Models;
 
 namespace Budgeter.Controllers
 {
+    [RequireHttps]
     [AuthorizeHouseholdRequired]
     public class BudgetsController : Controller
     {
@@ -19,23 +20,63 @@ namespace Budgeter.Controllers
         public ActionResult Index()
         {
             var HId = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var HCats = db.Categories.Where(c => c.HouseholdId == HId).ToList();
+            var month = DateTime.Now.Month;
+            foreach (var cat in HCats)
+            {
+                if (cat.BudgetItems.Count == 0)
+                {
+                    Budget zero = new Budget
+                    {
+                        HouseholdId = HId,
+                        CategoryId = cat.Id,
+                        Category = cat,
+                        Amount = 0,
+                        Spent = 0,
+                        IsOver = false
+                    };
+                    //var month = DateTime.Now.Month;
+                    var transactions = db.Transactions.Where(t => t.CategoryId == cat.Id && t.IsDeleted == false && t.Date.Month == month).ToList();
+                    foreach (var trans in transactions)
+                    {
+                        zero.Spent += trans.Amount;
+                    }
+                    db.Budgets.Add(zero);
+                    cat.BudgetItems.Add(zero);
+                }
+            }
+            db.SaveChanges();
             var budgets = db.Budgets.Where(b => b.HouseholdId == HId).Include(b => b.Category).ToList();
-            //foreach(var budget in budgets)
-            //{
-            //    var transactions = db.Transactions.Where(t => t.CategoryId == budget.CategoryId && t.Account.HouseholdId == HId && t.IsDeleted == false).ToList();
-            //    foreach (var trans in transactions)
-            //    {
-            //        budget.Spent += trans.Amount;
-            //    }
-            //    if (budget.Spent > budget.Amount)
-            //    {
-            //        budget.IsOver = true;
-            //    }
-            //    else
-            //    {
-            //        budget.IsOver = false;
-            //    }
-            //}
+            foreach (var budget in budgets)
+            {
+                budget.Spent = (from t in db.Transactions
+                                where t.CategoryId == budget.CategoryId && t.IsDeleted == false && t.Date.Month == month
+                                select t.Amount).DefaultIfEmpty().Sum();
+                if (budget.Category.IsExpense)
+                {
+                    if (budget.Amount + budget.Spent < 0)
+                    {
+                        budget.IsOver = true;
+                    }
+                    else
+                    {
+                        budget.IsOver = false;
+                    }
+                }
+                else
+                {
+                    if (budget.Amount - budget.Spent < 0)
+                    {
+                        budget.IsOver = true;
+                    }
+                    else
+                    {
+                        budget.IsOver = false;
+                    }
+                }
+
+
+            }
             db.SaveChanges();
             return View(budgets);
         }

@@ -48,6 +48,9 @@
 }
 
 /*--About--*/
+.hello {
+    padding-right: 60px;
+}
 #about a {
     color:#FFF;
 }

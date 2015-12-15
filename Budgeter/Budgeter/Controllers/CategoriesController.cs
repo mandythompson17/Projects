@@ -10,6 +10,7 @@ using Budgeter.Models;
 
 namespace Budgeter.Controllers
 {
+    [RequireHttps]
     [AuthorizeHouseholdRequired]
     public class CategoriesController : Controller
     {
@@ -38,7 +39,7 @@ namespace Budgeter.Controllers
             //        HCats.Add(cat);
             //    }
             //}
-            var HCats = db.Categories.Where(c => c.HouseholdId == HId).ToList();
+            var HCats = db.Categories.Where(c => c.HouseholdId == HId).ToList().OrderBy(c => c.Name);
             foreach (var cat in HCats)
             {
                 cat.Transactions = db.Transactions.Where(t => t.CategoryId == cat.Id && t.Account.HouseholdId == HId).ToList();
@@ -78,7 +79,7 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,HouseholdId,IsDeleted")] Category category)
+        public ActionResult Create([Bind(Include = "Id,Name,HouseholdId,IsExpense,IsDeleted")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +89,7 @@ namespace Budgeter.Controllers
                 category.Household = household;
                 category.IsDeleted = false;
                 db.Categories.Add(category);
+                household.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Budgets");
             }
@@ -115,7 +117,7 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,HouseholdId,Household")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Name,HouseholdId,Household,IsExpense,IsDeleted")] Category category)
         {
             if (ModelState.IsValid)
             {

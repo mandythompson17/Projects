@@ -23,9 +23,9 @@
                 <li>
                     <a href="#fake" data-filter=".car-find">Car Finder</a>
                 </li>
-                <!--<li>
+                <li>
                     <a href="#fake" data-filter=".budg-plan">Budget Planner</a>
-                </li>-->
+                </li>
             </ul>
         </div><!--End portfolio filters -->
 
@@ -209,10 +209,25 @@
                 </div>
 
             </a><!--End Project Item -->
+            <!-- ==============================================
+         PROJECT ITEM - Budgeter
+    =============================================== -->
+
+            <a class="project-item budg-plan" href="" data-toggle="modal" data-target="#budgeter">
+                <img class="img-responsive project-image" src="~/assets/projects/33-12130430812yrA.jpg" alt="Money"><!--Project thumb -->
+
+                <div class="hover-mask">
+                    <h2 class="project-title">Budgeter</h2><!--Project Title -->
+                    <p>Use this financial portal to plan your household's budget.</p><!--Project Subtitle -->
+                </div>
+
+            </a><!--End Project Item -->
 
         </div><!-- End projects -->
 
     </div><!-- End container -->
+
+
     <!-- ==============================================
     PROJECT PREVIEW MODAL (Do not alter this markup)
     =============================================== --
@@ -1000,59 +1015,16 @@
 </div>
 
 <!-- Bugtracker-->
-<div id="bug-tracker" class="modal fade" aria-labelledby="myModalLabel">
+<div id="bug-tracker" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
 
         <div class="modal-content">
 
             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 <h1 class="modal-title" id="myModalLabel">Thompson BugTracker</h1>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-
-            <div class="modal-body">
-
-                <div class="left-col">
-                    <img class="img-responsive" src="/assets/imac.png" alt="">
-                        <div class="image-wrapper flexslider done">
-                            <div class="flex-viewport" style="overflow: hidden; position: relative">
-                                <ul class="slides" style="width: 1000%; transition-duration: 0.6s;">
-                                    <li class="clone" aria-hidden="true" style="width: 533px; float: left; display: block;">
-                                        <img src="~/assets/projects/bugtracker tickets.png" />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                        <h1></h1>
-
-                        <div class="project-descr"></div>
-
-                        <div class="clearfix"></div>
-
-                        <p class="text-center"><a class="btn btn-theme" href="http://thompson-bugtracker.azurewebsites.net" target="_blank"><i class="icon-external-link"></i>Visit Website</a></p>
-
-                    </div>
-            <!-- End modal-body -->
-
-        </div><!-- End modal-content -->
-
-    </div><!-- End modal-dialog -->
-
-</div><!-- End modal -->
-
-<!-- Carfinder-->
-<div id="car-finder" class="modal fade" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h1 class="modal-title" id="myModalLabel">Thompson Carfinder</h1>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
 
             <div class="modal-body">
@@ -1063,7 +1035,52 @@
                         <div class="flex-viewport" style="overflow: hidden; position: relative">
                             <ul class="slides" style="width: 1000%; transition-duration: 0.6s;">
                                 <li class="clone" aria-hidden="true" style="width: 533px; float: left; display: block;">
-                                    <img src="~/assets/projects/carfinder.png"/>
+                                    <img src="~/assets/projects/bugtracker tickets.png" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h1></h1>
+
+                <div class="project-descr"></div>
+
+                <div class="clearfix"></div>
+
+                <p class="text-center"><a class="btn btn-theme" href="http://thompson-bugtracker.azurewebsites.net" target="_blank"><i class="icon-external-link"></i>Visit Website</a></p>
+
+            </div>
+            <!-- End modal-body -->
+
+        </div><!-- End modal-content -->
+
+    </div><!-- End modal-dialog -->
+
+</div><!-- End modal -->
+
+<!-- Carfinder-->
+<div id="car-finder" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h1 class="modal-title" id="myModalLabel">Thompson Carfinder</h1>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="left-col">
+                    <img class="img-responsive" src="/assets/imac.png" alt="">
+                    <div class="image-wrapper flexslider done">
+                        <div class="flex-viewport" style="overflow: hidden; position: relative">
+                            <ul class="slides" style="width: 1000%; transition-duration: 0.6s;">
+                                <li class="clone" aria-hidden="true" style="width: 533px; float: left; display: block;">
+                                    <img src="~/assets/projects/carfinder.png" />
                                 </li>
                                 <li class="clone" aria-hidden="true" style="width: 533px; float: left; display: block;">
                                     <img src="~/assets/projects/carfinder2.png" />
@@ -1087,7 +1104,54 @@
 
                 <div class="clearfix"></div>
 
-                <p class="text-center"><a class="btn btn-theme" href="http://thompson-carfinder.azurewebsites.net/" target="_blank"><i class="icon-external-link"></i>Visit Website</a></p>
+                <p class="text-center"><a class="btn btn-theme" href="http://mthompson-carfinder.azurewebsites.net/" target="_blank"><i class="icon-external-link"></i>Visit Website</a></p>
+
+            </div>
+            <!-- End modal-body -->
+
+        </div><!-- End modal-content -->
+
+    </div><!-- End modal-dialog -->
+
+</div><!-- End modal -->
+
+<!-- Budgeter -->
+<div id="budgeter" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h1 class="modal-title" id="myModalLabel">Thompson Budgeter</h1>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="left-col">
+                    <img class="img-responsive" src="/assets/imac.png" alt="">
+                    <div class="image-wrapper flexslider done">
+                        <div class="flex-viewport" style="overflow: hidden; position: relative">
+                            <ul class="slides" style="width: 1000%; transition-duration: 0.6s;">
+                                <li class="clone" aria-hidden="true" style="width: 533px; float: left; display: block;">
+                                    <img src="~/assets/projects/budgeter.png" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h1></h1>
+
+                <div class="project-descr">
+                    This website was developed using ASP.NET MVC.
+                </div>
+
+                <div class="clearfix"></div>
+
+                <p class="text-center"><a class="btn btn-theme" href="http://thompson-budgeter.azurewebsites.net/" target="_blank"><i class="icon-external-link"></i>Visit Website</a></p>
 
             </div>
             <!-- End modal-body -->

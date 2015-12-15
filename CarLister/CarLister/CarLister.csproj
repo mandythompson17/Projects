@@ -1073,6 +1073,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <None Include="Properties\PublishProfiles\mthompson-carfinder %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mthompson-carfinder.pubxml" />
     <None Include="Properties\PublishProfiles\thompson-carfinder %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\thompson-carfinder.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />

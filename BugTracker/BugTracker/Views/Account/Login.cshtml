@@ -46,7 +46,7 @@
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
                     </p>
             }
-        </section> @Url.Action()
+        </section>
     </div>
     <div class="col-md-4">
         <form role="form" method="post" action="@Url.Action("GuestLogin", "Account", new { id = "df17eb7f-f910-4afa-802e-ecb39935f9a9" })">
@@ -55,11 +55,11 @@
         </form>
     </div>
 
-    @*<div class="col-md-4">
+    <div class="col-md-4">
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
-    </div>*@
+    </div>
 </div>
 
 @section Scripts {

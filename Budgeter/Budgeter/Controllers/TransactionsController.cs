@@ -11,6 +11,7 @@ using Budgeter.Models;
 
 namespace Budgeter.Controllers
 {
+    [RequireHttps]
     [AuthorizeHouseholdRequired]
     public class TransactionsController : Controller
     {
@@ -55,7 +56,7 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BankAccountId,UserId,CategoryId,Category,Date,Amount,ReconciliationAmount,IsWithdrawal,Description,IsReconciled,IsDeleted")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "Id,BankAccountId,UserId,CategoryId,Category,Date,Amount,IsWithdrawal,Description,IsDeleted")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -70,14 +71,6 @@ namespace Budgeter.Controllers
                 else
                 {
                     transaction.IsWithdrawal = false;
-                }
-                if (transaction.ReconciliationAmount > 0)
-                {
-                    transaction.IsReconciled = false;
-                }
-                else
-                {
-                    transaction.IsReconciled = true;
                 }
                 transaction.IsDeleted = false;
                 transaction.Date = System.DateTimeOffset.Now;
@@ -187,7 +180,7 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,BankAccountId,UserId,CategoryId,Date,Amount,ReconciliationAmount,IsWithdrawal,Description,IsDeleted")] Transaction transaction)
+        public ActionResult Edit([Bind(Include = "Id,BankAccountId,UserId,CategoryId,Date,Amount,IsWithdrawal,Description,IsDeleted")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -230,14 +223,6 @@ namespace Budgeter.Controllers
                 else
                 {
                     transaction.IsWithdrawal = false;
-                }
-                if (transaction.ReconciliationAmount > 0)
-                {
-                    transaction.IsReconciled = false;
-                }
-                else
-                {
-                    transaction.IsReconciled = true;
                 }
                 db.Entry(transaction).State = EntityState.Modified;
                 db.Entry(account).Property("Balance").IsModified = true;

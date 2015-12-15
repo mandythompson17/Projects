@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Budgeter.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class HouseholdsController : Controller
     {

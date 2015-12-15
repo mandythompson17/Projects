@@ -1,0 +1,3 @@
+﻿@model bool
+
+@Html.DropDownList("", new SelectListItem[] { new SelectListItem() { Text = "Expense", Value = "true", Selected = Model }, new SelectListItem() { Text = "Income", Value = "false", Selected = !Model } })

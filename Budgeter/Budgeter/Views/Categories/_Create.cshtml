@@ -1,11 +1,9 @@
 ﻿@model Budgeter.Models.Category
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Category";
 }
 
-<h2>Create New Category</h2>
-<hr />
 
 @using (Html.BeginForm("Create", "Categories")) 
 {
@@ -13,6 +11,7 @@
     
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,8 +21,22 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.IsExpense, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<div class="checkbox">
+                    @Html.EditorFor(model => model.IsExpense)
+                    @Html.ValidationMessageFor(model => model.IsExpense, "", new { @class = "text-danger" })
+                </div>*@
+                <select name="IsExpense">
+                    <option value="true">Expense</option>
+                    <option value="false">Income</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
     </div>

@@ -54,15 +54,15 @@ namespace Budgeter
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "888898387891489",
+               appSecret: "9ab5b4248b9efaae5c2e74943ffc6adb");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1090320630491-kgskm4hdvucrto32pmi2nfsi52dos58g.apps.googleusercontent.com",
+                ClientSecret = "ShFXDkimx0O15NAgdrY4UI4d"
+            });
         }
     }
 }

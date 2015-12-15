@@ -54,15 +54,15 @@ namespace BugTracker
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "149008955463696",
+               appSecret: "b6db331e87d5208f2314b50afc37f0c3");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1090320630491-rovvqbeia3ic6qsbanv6thrhlftubndk.apps.googleusercontent.com",
+                ClientSecret = "IcNGExr6zBFy0H998BytJpeX"
+            });
         }
     }
 }
