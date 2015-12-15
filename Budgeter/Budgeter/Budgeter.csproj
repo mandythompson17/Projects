@@ -414,6 +414,7 @@
     <Content Include="Content\DataTables-1.10.10\media\images\Sorting icons.psd" />
     <Content Include="Content\DataTables-1.10.10\extensions\Buttons\css\mixins.scss" />
     <Content Include="Content\DataTables-1.10.10\extensions\Buttons\css\common.scss" />
+    <Content Include="connections.config" />
     <None Include="Properties\PublishProfiles\thompson-budgeter %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\thompson-budgeter.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
